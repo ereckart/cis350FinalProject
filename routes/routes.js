@@ -10,7 +10,12 @@ var client = new auth.OAuth2(clientID, clientSecret, redirectUrl);
 var postLogin = function(req, res){
 	console.log('in here');
 	console.log(req.body);
-    var user = {id: req.userid, email: req.email, name: req.name, clubs:[]};
+
+	var userid = req.body.userid;
+	var email = req.body.email;
+	var name = req.body.name;
+
+    var user = {userid: userid, email: email, name: name, clubs:[]};
     userDb.addUser(user, function (error) {
         console.log('got to add');
         if (error) {
