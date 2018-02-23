@@ -1,7 +1,7 @@
 
 var postLogin = function(req, res){
 	console.log('in here');
-	res.send(req.body.username);
+	res.send('hey');
 }
 
 var routes = {

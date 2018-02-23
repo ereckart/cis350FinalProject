@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/', (req, res) => res.render('login'));
-app.post('/checkLogin', routes.post_login);
+app.post('/tokensignin', routes.post_login);
 
 app.listen(8080);
 console.log("listening on port " + 8080);
