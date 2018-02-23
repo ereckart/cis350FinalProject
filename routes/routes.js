@@ -10,6 +10,15 @@ var client = new auth.OAuth2(clientID, clientSecret, redirectUrl);
 var postLogin = function(req, res){
 	console.log('in here');
 	console.log(req.body);
+    var user = {id: req.userid, email: req.email, name: req.name, clubs:[]};
+    userDb.addUser(user, function (error) {
+        console.log('got to add');
+        if (error) {
+            next(error);
+        } else {
+            res.send('User added!');
+        }
+    });
 
 // check your terminal's console, but req.body is basically a json object
 // with three fields - email, name, and userid.
@@ -23,8 +32,8 @@ var verifyToken = function(req, res) {
 	var token = {idtoken: req.body.idtoken}
 
 	// client.verifyIdToken(
-	// 	token, 
-	// 	clientID, 
+	// 	token,
+	// 	clientID,
 	// 	function(e, login) {
 	// 		if (e) {
 	// 			console.log(e);
