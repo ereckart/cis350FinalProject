@@ -7,7 +7,13 @@ app.set('view engine', 'html');
 app.set('views', path.join(__dirname,'public'));
 app.use(express.static(path.join(__dirname,'public')));
 
-app.get('/', (req, res) => res.render('login'));
+app.get('/', function (req, res) {
+	try {
+		res.render('login')
+	} catch (err) {
+		console.log(err)
+	}
+});
 
 app.listen(8080);
 console.log("listening on port " + 8080);
