@@ -13,7 +13,7 @@ var postLogin = function(req, res){
 
 var verifyToken = function(message) {
 	console.log('in verification');
-
+	console.log(message.body)
 	var token = {idtoken: message.body.idtoken}
 
 	client.verifyIdToken(
