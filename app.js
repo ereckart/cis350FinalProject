@@ -5,6 +5,7 @@ var routes = require('./routes/routes.js');
 var uuid = require('node-uuid');
 var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 app.engine('html', require('ejs').__express);
 app.set('view engine', 'html');
@@ -26,8 +27,11 @@ app.post('/loggedIn', routes.post_login);
 app.post('/verifyLogin', routes.verify_login)
 app.get('/welcome', (req, res) => res.render('welcome'));
 
-app.listen(8080);
-console.log("listening on port " + 8080);
+app.set('port', process.env.PORT || 8080);
+
+var server = app.listen(app.get('port'), function () {
+console.log('Express server listening on port %d', server.address().port);
+});
 
 // Client ID: 916258004164-3304q68p6dgrhsqdb1b2d00ncg6gs4mc.apps.googleusercontent.com
 // Client secret: M2bVdirEI6D3giseHeZGvRRa
