@@ -37,9 +37,20 @@ var verifyToken = function(req, res) {
 	res.send('success')
 };
 
+var verifyLogin = function(req, res) {
+
+	// once postLogin is complete, add the line below into there
+	req.session.isLoggedIn = true;
+
+	if (req.session.isLoggedIn) {
+		res.redirect('/welcome');
+	};
+};
+
 var routes = {
 	post_login: postLogin,
-	verify_token: verifyToken
+	verify_token: verifyToken,
+	verify_login: verifyLogin
 };
 
 module.exports = routes;
