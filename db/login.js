@@ -14,9 +14,15 @@ module.exports = {
   },
 
   addUser: function (userData, callback) {
-    var user = new mongo.Users(userData);
+    console.log('got to add user function!');
+    var user = new mongo.User(userData);
+    console.log('created user doc');
     user.save(function (error) {
-      callback(error);
+      if(error) {
+        return handleError(error);
+      }
+      console.log('got to save function');
+      //callback(error);
     });
   }
 };

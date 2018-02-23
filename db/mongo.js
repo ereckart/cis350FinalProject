@@ -15,8 +15,7 @@ var db = mongoose.connection;
 var userSchema = new mongoose.Schema({
   id: Number,
   email: String,
-  firstName: String,
-  lastName: String,
+  name: String,
   clubs: [Number]
 });
 
@@ -26,12 +25,12 @@ var clubSchema = new mongoose.Schema({
   members: [String]
 });
 
-var Users = mongoose.model('Users', userSchema);
-var Clubs = mongoose.model('Clubs', clubSchema);
+var User = mongoose.model('User', userSchema);
+var Club = mongoose.model('Club', clubSchema);
 
 module.exports = {
-  Users: Users,
-  Clubs: Clubs,
+  User: User,
+  Club: Club,
   mongoose: mongoose,
   db: db.collection('Accounts')
 };
