@@ -21,6 +21,7 @@ var userSchema = new mongoose.Schema({
 
 var clubSchema = new mongoose.Schema({
   clubid: Number,
+  adminid: Number,
   clubname: String,
   members: [String]
 });
