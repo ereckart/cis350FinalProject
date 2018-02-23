@@ -5,5 +5,5 @@ var config = {
     databaseURL: "https://club-central.firebaseio.com",
     storageBucket: "club-central.appspot.com",
   };
-firebase.initializeApp(config);
-var database = firebase.database();
+var app = firebase.initializeApp(config);
+var database = firebase.database(app);
