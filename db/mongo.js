@@ -13,7 +13,7 @@ mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 
 var userSchema = new mongoose.Schema({
-  userid: String,
+  userid: {type: String, unique: true, required: true},
   email: String,
   name: String,
   clubs: [Number]

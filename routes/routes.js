@@ -8,7 +8,6 @@ var auth = new GoogleAuth;
 var client = new auth.OAuth2(clientID, clientSecret, redirectUrl);
 
 var postLogin = function(req, res){
-	console.log('in here');
 	console.log(req.body);
 
 	var userid = req.body.userid;
@@ -16,12 +15,20 @@ var postLogin = function(req, res){
 	var name = req.body.name;
 
     var user = {userid: userid, email: email, name: name, clubs:[]};
-    userDb.addUser(user, function (error) {
-        console.log('got to add');
+    userDb.getUser(userid, function (error, users) {
         if (error) {
-            next(error);
+            console.log(error);
         } else {
-            res.send('User added!');
+            if(users.length == 0) {
+                userDb.addUser(user, function(error) {
+                    if(error) {
+                        console.log(error);
+                    }
+                    else {
+                        console.log('New User Added!');
+                    }
+                });
+            }
         }
     });
 

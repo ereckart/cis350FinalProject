@@ -1,14 +1,9 @@
 var mongo = require('./mongo');
 
 module.exports = {
-  // getAllReviews: function (callback) {
-  //   mongo.Reviews.find(function (error, reviews) {
-  //     callback(error, reviews);
-  //   });
-  // },
 
   getUser: function (id, callback) {
-    mongo.Users.find({id: id}).exec(function (error, users) {
+    mongo.User.find({userid: id}).exec(function (error, users) {
       callback(error, users);
     });
   },
@@ -20,7 +15,7 @@ module.exports = {
     console.log('created user doc');
     user.save(function (error) {
       if(error) {
-        return handleError(error);
+        callback(error);
       }
       console.log('got to save function');
       //callback(error);
