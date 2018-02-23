@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://<derulker>:<cis350>@ds147668.mlab.com:47668/club-central', function (err) {
+mongoose.connect('mongodb://team38:cis350@ds147668.mlab.com:47668/club-central', function (err) {
   if (err && err.message.includes('ECONNREFUSED')) {
     console.log('Error connecting to mongodb database: %s.\nIs "mongod" running?', err.message);
     process.exit(0);
@@ -9,7 +9,7 @@ mongoose.connect('mongodb://<derulker>:<cis350>@ds147668.mlab.com:47668/club-cen
     console.log('DB successfully connected. Adding seed data...');
   }
 });
-
+mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 
 var userSchema = new mongoose.Schema({
