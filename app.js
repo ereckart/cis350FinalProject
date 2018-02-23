@@ -23,6 +23,7 @@ app.get('/', (req, res) => res.render('login'));
 
 app.post('/tokensignin', routes.verify_token)
 app.post('/loggedIn', routes.post_login);
+app.get('/welcome', (req, res) => res.render('welcome'));
 
 app.listen(8080);
 console.log("listening on port " + 8080);

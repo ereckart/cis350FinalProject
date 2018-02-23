@@ -8,25 +8,32 @@ var client = new auth.OAuth2(clientID, clientSecret, redirectUrl);
 
 var postLogin = function(req, res){
 	console.log('in here');
-	res.send('hey');
+	console.log(req.body);
+
+// check your terminal's console, but req.body is basically a json object
+// with three fields - email, name, and userid.
+
+	res.send('message'); // this is just dummy
 }
 
-var verifyToken = function(message) {
+var verifyToken = function(req, res) {
 	console.log('in verification');
-	console.log(message.body)
-	var token = {idtoken: message.body.idtoken}
+	console.log(req.body)
+	var token = {idtoken: req.body.idtoken}
 
-	client.verifyIdToken(
-		token, 
-		clientID, 
-		function(e, login) {
-			if (e) {
-				console.log(e);
-				return;
-			}
-			var payload = login.getPayload()
-			var userid = payload['sub'];
-		});
+	// client.verifyIdToken(
+	// 	token, 
+	// 	clientID, 
+	// 	function(e, login) {
+	// 		if (e) {
+	// 			console.log(e);
+	// 			return;
+	// 		}
+	// 		var payload = login.getPayload()
+	// 		var userid = payload['sub'];
+	// 	});
+
+	res.send('success')
 };
 
 var routes = {
