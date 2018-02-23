@@ -13,16 +13,16 @@ mongoose.connect('mongodb://<derulker>:<cis350>@ds147668.mlab.com:47668/club-cen
 var db = mongoose.connection;
 
 var userSchema = new mongoose.Schema({
-  id: Number
-  email: String
-  firstName: String
-  lastName: String
+  id: Number,
+  email: String,
+  firstName: String,
+  lastName: String,
   clubs: [Number]
 });
 
 var clubSchema = new mongoose.Schema({
-  clubid: Number
-  clubname: String
+  clubid: Number,
+  clubname: String,
   members: [String]
 });
 
