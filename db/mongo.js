@@ -14,26 +14,26 @@ var db = mongoose.connection;
 
 var userSchema = new mongoose.Schema({
   userid: {type: String, unique: true, required: true},
-  email: String,
-  name: String,
+  email: {type: String, required: true},
+  name: {type: String, required: true},
   clubs: [String]
 });
 
 var clubSchema = new mongoose.Schema({
   clubid: {type: String, unique: true, required: true},
-  adminid: String,
-  clubname: String,
+  adminid: {type: String, required: true}, 
+  clubname: {type: String, required: true},
   members: [String],
   welcomeblurb: String
 });
 
 var eventSchema = new mongoose.Schema({
   eventid: {type: String, unique: true, required: true},
-  date: Number,
-  starttime: Number,
-  endtime: Number,
-  eventname: String,
-  location: String,
+  date: {type: Number, required: true},
+  starttime: {type: Number, required: true},
+  endtime: {type: Number, required: true},
+  eventname: {type: String, required: true},
+  location: {type: String, required: true},
   invited: [String]
 })
 
