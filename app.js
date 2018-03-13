@@ -24,7 +24,9 @@ app.get('/', (req, res) => res.render('login'));
 
 app.post('/tokensignin', routes.verify_token)
 app.post('/loggedIn', routes.post_login);
-app.post('/verifyLogin', routes.verify_login)
+app.post('/verifyLogin', routes.verify_login);
+app.get('/create', (req, res) => res.render('create'));
+app.get('/conflict', (req, res) => res.render('conflict'));
 app.get('/welcome', (req, res) => res.render('welcome'));
 
 app.set('port', process.env.PORT || 8080);
