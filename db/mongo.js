@@ -35,16 +35,27 @@ var eventSchema = new mongoose.Schema({
   eventname: {type: String, required: true},
   location: {type: String, required: true},
   invited: [String]
-})
+});
+
+var conflictSchema = new mongoose.Schema({
+  conflictid: {type: String, unique: true, required: true},
+  ownerid: {type: String, required: true},
+  date: {type: Number, required: true},
+  starttime: {type: Number, required: true},
+  endtime: {type: Number, required: true},
+  reason: {type: Number, required: true}
+});
 
 var User = mongoose.model('User', userSchema);
 var Club = mongoose.model('Club', clubSchema);
 var ClubEvent = mongoose.model('ClubEvent', eventSchema);
+var Conflict = mongoose.model('Conflict', conflictSchema);
 
 module.exports = {
   User: User,
   Club: Club,
   ClubEvent: ClubEvent,
+  Conflict: Conflict,
   mongoose: mongoose,
   db: db.collection('Accounts')
 };
