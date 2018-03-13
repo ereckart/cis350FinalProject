@@ -39,12 +39,12 @@ var eventSchema = new mongoose.Schema({
 
 var User = mongoose.model('User', userSchema);
 var Club = mongoose.model('Club', clubSchema);
-var Event = mongoose.model('Event', eventSchema);
+var ClubEvent = mongoose.model('ClubEvent', eventSchema);
 
 module.exports = {
   User: User,
   Club: Club,
-  Event: Event,
+  ClubEvent: ClubEvent,
   mongoose: mongoose,
   db: db.collection('Accounts')
 };
