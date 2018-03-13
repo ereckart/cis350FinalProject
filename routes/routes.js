@@ -68,10 +68,20 @@ var verifyLogin = function(req, res) {
 	};
 };
 
+var submitConflict = function(req, res) {
+    res.redirect('/conflict');
+}
+
+var newClub = function(req, res) {
+    res.redirect('/create');
+}
+
 var routes = {
 	post_login: postLogin,
 	verify_token: verifyToken,
-	verify_login: verifyLogin
+	verify_login: verifyLogin,
+    submit_conflict: submitConflict,
+    new_club: newClub
 };
 
 module.exports = routes;
