@@ -16,22 +16,35 @@ var userSchema = new mongoose.Schema({
   userid: {type: String, unique: true, required: true},
   email: String,
   name: String,
-  clubs: [Number]
+  clubs: [String]
 });
 
 var clubSchema = new mongoose.Schema({
-  clubid: Number,
-  adminid: Number,
+  clubid: {type: String, unique: true, required: true},
+  adminid: String,
   clubname: String,
-  members: [String]
+  members: [String],
+  welcomeblurb: String
 });
+
+var eventSchema = new mongoose.Schema({
+  eventid: {type: String, unique: true, required: true},
+  date: Number,
+  starttime: Number,
+  endtime: Number,
+  eventname: String,
+  location: String,
+  invited: [String]
+})
 
 var User = mongoose.model('User', userSchema);
 var Club = mongoose.model('Club', clubSchema);
+var Event = mongoose.model('Event', eventSchema);
 
 module.exports = {
   User: User,
   Club: Club,
+  Event: Event,
   mongoose: mongoose,
   db: db.collection('Accounts')
 };
