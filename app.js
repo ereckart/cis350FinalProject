@@ -26,6 +26,7 @@ app.post('/tokensignin', routes.verify_token)
 app.post('/loggedIn', routes.post_login);
 app.post('/verifyLogin', routes.verify_login);
 app.get('/create', (req, res) => res.render('create'));
+app.get('/join', (req, res) => res.render('join'));
 app.get('/conflict', (req, res) => res.render('conflict'));
 app.get('/welcome', (req, res) => res.render('welcome'));
 
