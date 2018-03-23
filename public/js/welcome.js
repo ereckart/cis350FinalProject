@@ -4,11 +4,12 @@
   var name = $.cookie('name');
   $('#welcomePerson').text('Welcome to Club Central, ' + name + '!');
   console.log(name);
-  console.log('clubs: ' + clubs);
+
 
   //populate user list of clubs
   var clubs = $.cookie('clubs');
-  clubs = clubs.slice(2);
+  console.log('clubs: ' + clubs);
+  //clubs = clubs.slice(2);
   var $list = $('#clubList');
   var clubArray = JSON.parse(clubs);
 

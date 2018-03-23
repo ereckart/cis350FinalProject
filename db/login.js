@@ -2,9 +2,15 @@ var mongo = require('./mongo');
 
 module.exports = {
 
-  getUser: function (id, callback) {
-    mongo.User.find({userid: id}).exec(function (error, users) {
+  getUserOrAdd: function (id, callback) {
+    return mongo.User.find({userid: id}).exec(function (error, users) {
       callback(error, users);
+    });
+  },
+
+  getUser: function (id) {
+    mongo.User.find({userid: id}, function(err, users) {
+
     });
   },
 

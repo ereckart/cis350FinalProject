@@ -15,7 +15,7 @@ var postLogin = function(req, res){
 	var userid = req.body.userid;
 	var email = req.body.email;
 	var name = req.body.name;
-    var clubs = ['WiCS'];
+    var clubs = [];
 
     var user = {userid: userid, email: email, name: name, clubs: clubs};
     //res.cookie('clubs', user.clubs);
@@ -101,14 +101,33 @@ var newClub = function(req, res) {
 		members: [req.session.userid],
 		welcomeblurb: req.body.welcomemessage
 	};
-	clubDb.addClub(clubData, function(err) {
-		if (err) {
-			console.log(err);
-			res.send('sadness');
-		} else {
-			res.send('success');
-		}
-	});
+
+	clubDb.getClubOrAdd(clubname, function (error, clubs) {
+        if (error) {
+            console.log(error);
+        } else {
+            if(clubs.length == 0) {
+                clubDb.addClub(clubData, function(error) {
+                    if(error) {
+                        console.log(error);
+                    }
+                    else {
+                        console.log('New User Added!');
+                    }
+                });
+            }
+            else {
+                //res.cookie('clubs', users[0].clubs);
+                var u = users[0];
+                //clubs = ['hi'];
+            }
+        }
+    });
+
+    var clubsCookie = JSON.parse(req.cookies.clubs);
+    clubsCookie.push(clubname);
+    res.cookie('clubs', JSON.stringify(clubsCookie));
+    res.redirect('/welcome');
 }
 
 var joinClubPage = function(req, res) {

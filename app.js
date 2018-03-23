@@ -33,7 +33,7 @@ app.get('/join', (req, res) => res.render('join'));
 app.get('/conflict', (req, res) => res.render('conflict'));
 app.get('/welcome', (req, res) => res.render('welcome'));
 
-app.get('login/:clubname', routes.login_join_club)
+//app.get('login/:clubname', routes.login_join_club)
 
 app.post('/createClub', routes.new_club);
 

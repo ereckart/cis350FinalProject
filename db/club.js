@@ -1,6 +1,13 @@
 var mongo = require('./mongo');
 
 module.exports = {
+
+  getClubOrAdd: function (id, callback) {
+    return mongo.Club.find({clubname: id}).exec(function (error, clubs) {
+      callback(error, clubs);
+    });
+  },
+
   addClub: function (clubData, callback) {
     var club = new mongo.Club(clubData);
     console.log('inside add Club');
@@ -14,6 +21,6 @@ module.exports = {
   },
 
   addClubToUser: function (userId, clubname, callback) {
-    
+
   }
 };
