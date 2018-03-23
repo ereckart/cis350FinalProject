@@ -144,6 +144,16 @@ var joinClub = function(req, res) {
 	console.log('inside join club')
 }
 
+var clubPageAdmin = function(req, res) {
+	adminId = req.params.adminid;
+	clubname = req.params.clubname;
+
+	// do whatever you want with these two things
+
+	res.render('club-admin');
+
+}
+
 var routes = {
 	post_login: postLogin,
 	verify_token: verifyToken,
@@ -151,7 +161,8 @@ var routes = {
     submit_conflict: submitConflict,
     new_club: newClub,
     join_club: joinClub,
-    join_club_landing_page: joinClubPage
+    join_club_landing_page: joinClubPage,
+    club_page_admin: clubPageAdmin
 };
 
 module.exports = routes;
