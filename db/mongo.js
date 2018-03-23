@@ -20,9 +20,8 @@ var userSchema = new mongoose.Schema({
 });
 
 var clubSchema = new mongoose.Schema({
-  clubid: {type: String, unique: true, required: true},
-  adminid: {type: String, required: true}, 
-  clubname: {type: String, required: true},
+  clubname: {type: String, unique: true, required: true},
+  adminid: {type: String, required: true},
   members: [String],
   welcomeblurb: String
 });

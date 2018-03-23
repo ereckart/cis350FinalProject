@@ -32,6 +32,7 @@ app.get('/club-admin', (req, res) => res.render('club-admin'));
 app.get('/join', (req, res) => res.render('join'));
 app.get('/conflict', (req, res) => res.render('conflict'));
 app.get('/welcome', (req, res) => res.render('welcome'));
+app.post('/createClub', routes.new_club);
 
 app.set('port', process.env.PORT || 8080);
 

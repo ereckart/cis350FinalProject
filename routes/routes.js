@@ -2,6 +2,7 @@ var clientID = '916258004164-3304q68p6dgrhsqdb1b2d00ncg6gs4mc.apps.googleusercon
 var clientSecret = 'M2bVdirEI6D3giseHeZGvRRa';
 var redirectUrl = 'http://localhost:8080/tokensignin';
 var userDb = require('../db/login');
+var clubDb = require('../db/club');
 
 var GoogleAuth = require('google-auth-library');
 var auth = new GoogleAuth;
@@ -45,6 +46,7 @@ var postLogin = function(req, res){
     //console.log(clubs);
     res.cookie('clubs', JSON.stringify(clubs));
     req.session.isLoggedIn = true;
+    req.session.userid = userid;
     res.cookie('userid', userid);
     res.cookie('email', email);
     res.cookie('name', name);
@@ -77,9 +79,6 @@ var verifyToken = function(req, res) {
 };
 
 var verifyLogin = function(req, res) {
-
-	// once postLogin is complete, add the line below into there
-	//req.session.isLoggedIn = true;
     console.log('Name is: ' + req.session.name);
 	if (req.session.isLoggedIn) {
 		res.redirect('/welcome');
@@ -91,7 +90,22 @@ var submitConflict = function(req, res) {
 }
 
 var newClub = function(req, res) {
-    res.redirect('/create');
+	console.log('new club');
+	console.log(req.body);
+	var clubData = {
+		adminid: req.session.userid,
+		clubname: req.body.clubname,
+		members: [req.session.userid],
+		welcomeblurb: req.body.welcomemessage
+	};
+	clubDb.addClub(clubData, function(err) {
+		if (err) {
+			console.log(err);
+			res.send('sadness');
+		} else {
+			res.send('success');
+		}
+	});
 }
 
 var routes = {
