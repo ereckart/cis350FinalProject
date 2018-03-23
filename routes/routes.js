@@ -130,6 +130,7 @@ var newClub = function(req, res) {
     var clubsCookie = JSON.parse(req.cookies.clubs);
     clubsCookie.push(clubname);
     res.cookie('clubs', JSON.stringify(clubsCookie));
+    res.cookie('blurb', req.body.welcomemessage);
     res.redirect('/welcome');
 }
 

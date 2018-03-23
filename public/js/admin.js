@@ -5,8 +5,15 @@
   $('#clubName').text(clubName);
   console.log(clubName);
 
+  //Display club join URL
+  $('#URL').text('localhost:8080/join/' + clubName);
+
   //Display club name for This week in...
   $('#thisWeek').text('This week in ' + clubName);
+
+  //Display welcome message
+  // var blurb = $.cookie('blurb');
+  // $('#blurb').text(blurb);
 
 
   //populate user list of clubs
