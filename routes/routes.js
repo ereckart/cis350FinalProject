@@ -8,7 +8,8 @@ var auth = new GoogleAuth;
 var client = new auth.OAuth2(clientID, clientSecret, redirectUrl);
 
 var postLogin = function(req, res){
-	console.log(req.body);
+	console.log('hi');
+    console.log(req.body);
 
 	var userid = req.body.userid;
 	var email = req.body.email;
@@ -32,10 +33,16 @@ var postLogin = function(req, res){
         }
     });
 
+    req.session.isLoggedIn = true;
+    res.cookie('userid', userid);
+    res.cookie('email', email);
+    res.cookie('name', name);
+
 // check your terminal's console, but req.body is basically a json object
 // with three fields - email, name, and userid.
 
 	res.send('message'); // this is just dummy
+    //res.redirect('/welcome')
 }
 
 var verifyToken = function(req, res) {
@@ -61,8 +68,8 @@ var verifyToken = function(req, res) {
 var verifyLogin = function(req, res) {
 
 	// once postLogin is complete, add the line below into there
-	req.session.isLoggedIn = true;
-
+	//req.session.isLoggedIn = true;
+    console.log('Name is: ' + req.session.name);
 	if (req.session.isLoggedIn) {
 		res.redirect('/welcome');
 	};
