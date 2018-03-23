@@ -92,9 +92,12 @@ var submitConflict = function(req, res) {
 var newClub = function(req, res) {
 	console.log('new club');
 	console.log(req.body);
+
+	clubname = req.body.clubname.replace(/\s/g, '');
+
 	var clubData = {
 		adminid: req.session.userid,
-		clubname: req.body.clubname,
+		clubname: clubname,
 		members: [req.session.userid],
 		welcomeblurb: req.body.welcomemessage
 	};
@@ -108,12 +111,28 @@ var newClub = function(req, res) {
 	});
 }
 
+var joinClubPage = function(req, res) {
+	console.log('inside join club page');
+	if (req.session.isLoggedIn) {
+		res.render('join');
+	} else {
+		req.
+		res.redirect('/')
+	}
+}
+
+var joinClub = function(req, res) {
+	console.log('inside join club')
+}
+
 var routes = {
 	post_login: postLogin,
 	verify_token: verifyToken,
 	verify_login: verifyLogin,
     submit_conflict: submitConflict,
-    new_club: newClub
+    new_club: newClub,
+    join_club: joinClub,
+    join_club_landing_page: joinClubPage
 };
 
 module.exports = routes;

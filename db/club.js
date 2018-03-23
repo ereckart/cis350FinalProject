@@ -11,5 +11,9 @@ module.exports = {
       }
       console.log('got to save function');
     });
+  },
+
+  addClubToUser: function (userId, clubname, callback) {
+    
   }
 };
