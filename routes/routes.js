@@ -8,15 +8,17 @@ var auth = new GoogleAuth;
 var client = new auth.OAuth2(clientID, clientSecret, redirectUrl);
 
 var postLogin = function(req, res){
-	console.log('hi');
+	//console.log('hi');
     console.log(req.body);
 
 	var userid = req.body.userid;
 	var email = req.body.email;
 	var name = req.body.name;
+    var clubs = ['WiCS'];
 
-    var user = {userid: userid, email: email, name: name, clubs:[]};
-    userDb.getUser(userid, function (error, users) {
+    var user = {userid: userid, email: email, name: name, clubs: clubs};
+    //res.cookie('clubs', user.clubs);
+    var userFile = userDb.getUser(userid, function (error, users) {
         if (error) {
             console.log(error);
         } else {
@@ -30,9 +32,18 @@ var postLogin = function(req, res){
                     }
                 });
             }
+            else {
+                //res.cookie('clubs', users[0].clubs);
+                var u = users[0];
+                //clubs = ['hi'];
+            }
         }
     });
 
+    //console.log(userFile);
+
+    //console.log(clubs);
+    res.cookie('clubs', JSON.stringify(clubs));
     req.session.isLoggedIn = true;
     res.cookie('userid', userid);
     res.cookie('email', email);
