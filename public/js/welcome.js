@@ -9,12 +9,12 @@
   //populate user list of clubs
   var clubs = $.cookie('clubs');
   console.log('clubs: ' + clubs);
-  //clubs = clubs.slice(2);
   var $list = $('#clubList');
   var clubArray = JSON.parse(clubs);
+  var adminid = $.cookie('userid');
 
   for (var i = 0; i < clubArray.length; i++) {
-    $list.append('<li>' + clubArray[i] + '</li>');
+    $list.append('<li> <a href="/clubpage/' + clubArray[i] + '/admin/' + adminid + '">' + clubArray[i] + '</a></li>');
   }
 
 

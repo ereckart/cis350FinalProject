@@ -148,6 +148,8 @@ var clubPageAdmin = function(req, res) {
 	adminId = req.params.adminid;
 	clubname = req.params.clubname;
 
+    res.cookie('clubName', clubname);
+
 	// do whatever you want with these two things
 
 	res.render('club-admin');
