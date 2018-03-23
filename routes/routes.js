@@ -79,7 +79,10 @@ var verifyToken = function(req, res) {
 };
 
 var verifyLogin = function(req, res) {
-    console.log('Name is: ' + req.session.name);
+	if (req.session.isLoggedIn && req.session.clubToJoin) {
+		res.cookie('clubToJoin', req.session.clubToJoin);
+		res.redirect('/join');
+	}
 	if (req.session.isLoggedIn) {
 		res.redirect('/welcome');
 	};
@@ -132,11 +135,12 @@ var newClub = function(req, res) {
 
 var joinClubPage = function(req, res) {
 	console.log('inside join club page');
+	req.session.clubToJoin = req.params.clubname;
 	if (req.session.isLoggedIn) {
+		res.cookie('clubToJoin', req.params.clubname);
 		res.render('join');
 	} else {
-		req.
-		res.redirect('/')
+		res.redirect('/');
 	}
 }
 

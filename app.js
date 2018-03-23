@@ -29,15 +29,13 @@ app.post('/loggedIn', routes.post_login);
 app.post('/verifyLogin', routes.verify_login);
 app.get('/create', (req, res) => res.render('create'));
 app.get('/clubpage/:clubname/admin/:adminid', routes.club_page_admin);
-app.get('/join', (req, res) => res.render('join'));
+
 app.get('/conflict', (req, res) => res.render('conflict'));
 app.get('/welcome', (req, res) => res.render('welcome'));
-
-//app.get('login/:clubname', routes.login_join_club)
-
 app.post('/createClub', routes.new_club);
 
 app.get('/join/:clubname', routes.join_club_landing_page)
+app.post('/join', )
 
 app.set('port', process.env.PORT || 8080);
 
