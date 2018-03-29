@@ -35,7 +35,6 @@ app.get('/welcome', (req, res) => res.render('welcome'));
 app.post('/createClub', routes.new_club);
 
 app.get('/join/:clubname', routes.join_club_landing_page)
-// app.post('/join', )
 
 app.set('port', process.env.PORT || 8080);
 
