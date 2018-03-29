@@ -19,7 +19,7 @@ var postLogin = function(req, res){
 
     var user = {userid: userid, email: email, name: name, clubs: clubs};
     //res.cookie('clubs', user.clubs);
-    var userFile = userDb.getUser(userid, function (error, users) {
+    var userFile = userDb.getUserOrAdd(userid, function (error, users) {
         if (error) {
             console.log(error);
         } else {
@@ -34,7 +34,7 @@ var postLogin = function(req, res){
                 });
             }
             else {
-                //res.cookie('clubs', users[0].clubs);
+                res.cookie('adminclubs', users[0].clubs);
                 var u = users[0];
                 //clubs = ['hi'];
             }
@@ -43,8 +43,8 @@ var postLogin = function(req, res){
 
     //console.log(userFile);
 
-    //console.log(clubs);
-    res.cookie('clubs', JSON.stringify(clubs));
+    console.log(clubs);
+    res.cookie('adminclubs', JSON.stringify(clubs));
     req.session.isLoggedIn = true;
     req.session.userid = userid;
     res.cookie('userid', userid);
@@ -127,9 +127,9 @@ var newClub = function(req, res) {
         }
     });
 
-    var clubsCookie = JSON.parse(req.cookies.clubs);
-    clubsCookie.push(clubname);
-    res.cookie('clubs', JSON.stringify(clubsCookie));
+    var adminclubsCookie = JSON.parse(req.cookies.adminclubs);
+    adminclubsCookie.push(clubname);
+    res.cookie('adminclubs', JSON.stringify(adminclubsCookie));
     res.cookie('blurb', req.body.welcomemessage);
     res.redirect('/welcome');
 }
