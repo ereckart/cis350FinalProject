@@ -1,4 +1,4 @@
-
+//OVERALL DESCRIPTION OF WHAT THIS DOES
 (function ($) {
     "use strict";
 
@@ -27,6 +27,7 @@
         });
     });
 
+    //DESCRIPTION OF FUNCTION
     function validate (input) {
         if ($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
             if ($(input).val().trim().match(
@@ -42,12 +43,14 @@
         }
     }
 
+    //DESCRIPTION OF FUNCTION
     function showValidate(input) {
         var thisAlert = $(input).parent();
 
         $(thisAlert).addClass('alert-validate');
     }
 
+    //DESCRIPTION OF FUNCTION
     function hideValidate(input) {
         var thisAlert = $(input).parent();
 

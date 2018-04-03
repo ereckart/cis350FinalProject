@@ -1,3 +1,4 @@
+//OVERALL DESCRIPTION OF WHAT THIS DOES
 (function($) {
 
     //Display club name on admin screen
