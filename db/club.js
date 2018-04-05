@@ -21,7 +21,17 @@ module.exports = {
     });
   },
 
-  addClubToUser: function (userId, clubname, callback) {
+  addMember: function(user, club, callback) {
+    mongo.Club.find({clubname: club}, function(err, clubs){
+      if (err) console.log(err);
 
+      var newMembers = clubs[0].members;
+      newMembers.push(user);
+      console.log("new Members:");
+      console.log(newMembers);
+
+      mongo.Club.update({clubname: club}, {$set: {members: newMembers}}, callback);
+
+    });
   }
 };

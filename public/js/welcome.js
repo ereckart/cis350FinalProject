@@ -6,15 +6,26 @@
     console.log(name);
 
 
-    //populate user list of clubs
+    //populate user list of Admin clubs
     var adminclubs = $.cookie('adminclubs');
     console.log('clubs: ' + adminclubs);
-    var $list = $('#adminclubList');
-    var clubArray = JSON.parse(adminclubs);
+    var $adminlist = $('#adminclubList');
+    var adminClubArray = JSON.parse(adminclubs);
+    var adminid = $.cookie('userid');
+
+    for (var i = 0; i < adminClubArray.length; i++) {
+        $adminlist.append('<li> <a href="/clubpage/' + adminClubArray[i] + '/admin/' + adminid + '">' + adminClubArray[i] + '</a></li>');
+    }
+
+    //populate user list of clubs
+    var clubs = $.cookie('clubs');
+    console.log('clubs: ' + clubs);
+    var $clublist = $('#clubList');
+    var clubArray = JSON.parse(clubs);
     var adminid = $.cookie('userid');
 
     for (var i = 0; i < clubArray.length; i++) {
-        $list.append('<li> <a href="/clubpage/' + clubArray[i] + '/admin/' + adminid + '">' + clubArray[i] + '</a></li>');
+        $clublist.append('<li> <a href="/club/' + clubArray[i] + '">' + clubArray[i] + '</a></li>');
     }
 
 
