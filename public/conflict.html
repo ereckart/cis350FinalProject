@@ -26,6 +26,10 @@
     <!-- Custom styles for this template -->
     <link href="../../../css/new-age.min.css" rel="stylesheet">
 
+    <!-- CSS for calendar & time dropdowns -->
+    <link rel="stylesheet" href="../../../css/jquery-ui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery.ui.timepicker.css">
+
   </head>
 
   <body id="page-top">
@@ -96,12 +100,12 @@
             <input type="text" class="form-control" id="date" placeholder="ex: 1/1/2001">
           </div>
           <div class="form-group">
-            <label for="start">Conflict Start Time</label>
-            <input type="text" class="form-control" id="start" placeholder="ex: 12:30">
+            <label for="starttime">Conflict Start Time</label>
+            <input type="text" class="form-control" id="starttime" placeholder="ex: 12:30">
           </div>
           <div class="form-group">
-            <label for="end">Conflict End Time</label>
-            <input type="text" class="form-control" id="end" placeholder="ex: 14:30">
+            <label for="endtime">Conflict End Time</label>
+            <input type="text" class="form-control" id="endtime" placeholder="ex: 14:30">
           </div>
           <div class="form-group">
             <label for="date">Conflict Date</label>
@@ -117,31 +121,6 @@
       </div>
       <div class="overlay"></div>
     </section>
-<!--
-    <section class="contact bg-primary" id="contact">
-      <div class="container">
-        <h2>We
-          <i class="fa fa-heart"></i>
-          new friends!</h2>
-        <ul class="list-inline list-social">
-          <li class="list-inline-item social-twitter">
-            <a href="#">
-              <i class="fa fa-twitter"></i>
-            </a>
-          </li>
-          <li class="list-inline-item social-facebook">
-            <a href="#">
-              <i class="fa fa-facebook"></i>
-            </a>
-          </li>
-          <li class="list-inline-item social-google-plus">
-            <a href="#">
-              <i class="fa fa-google-plus"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </section> -->
 
     <footer>
       <div class="container">
@@ -171,6 +150,30 @@
     <!-- Custom scripts for this template -->
     <script src="../../../js/new-age.min.js"></script>
     <script src="../../../js/admin.js"></script>
+
+    <!-- Custom script for calendar dropdown -->
+    <script src="../../../js/jquery.js"></script>
+    <script src="../../../js/jquery-ui.min.js"></script>
+    <script>
+      $(function() {
+        $("#date").datepicker();
+      });
+    </script>
+
+    <!-- Custom script for timepicker  -->
+    <script src="../../../js/jquery.ui.timepicker.js"/>
+    <script src="../../../js/jquery.ui.core.min.js"/>
+    <script src="../../../js/jquery.ui.timepicker.js"/>
+    <script src="../../../js/jquery.ui.tabs.min.js"/>
+    <script src="../../../js/jquery.ui.widget.min.js"/>
+    <script>
+      $(function() {
+        console.log('within timepicker script')
+        $('#starttime').timepicker();
+        $('#endtime').timepicker();
+      })
+    </script>
+
 
   </body>
 
