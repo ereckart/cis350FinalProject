@@ -71,11 +71,12 @@ var verifyToken = function(req, res) {
 };
 
 var verifyLogin = function(req, res) {
-	if (req.session.isLoggedIn && req.session.clubToJoin) {
+	if (req.session.clubToJoin) {
+        req.session.isLoggedIn = true;
 		res.cookie('clubToJoin', req.session.clubToJoin);
-		res.redirect('/join');
+		res.redirect('/join/' + req.session.clubToJoin);
 	}
-	if (req.session.isLoggedIn) {
+	else if (req.session.isLoggedIn) {
 		res.redirect('/welcome');
 	};
 };
