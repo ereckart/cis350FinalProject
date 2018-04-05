@@ -28,7 +28,7 @@ app.post('/tokensignin', routes.verify_token)
 app.post('/loggedIn', routes.post_login);
 app.post('/verifyLogin', routes.verify_login);
 app.get('/create', (req, res) => res.render('create'));
-app.get('/club/:clubname', (req, res) => res.render('club'));
+app.get('/club/:clubname', routes.club_page);
 app.get('/clubpage/:clubname/admin/:adminid', routes.club_page_admin);
 
 app.get('/conflict', (req, res) => res.render('conflict'));

@@ -192,10 +192,23 @@ var clubPageAdmin = function(req, res) {
         }
     });
 
+}
 
-	// do whatever you want with these two things
+var clubPage = function(req, res) {
+    clubname = req.params.clubname;
 
-	// res.render('club-admin');
+    clubDb.getClubOrAdd(clubname, function(error, clubs) {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            console.log('CLUB:');
+            console.log(clubs[0]);
+            res.cookie('clubName', clubname);
+            res.cookie('blurb', clubs[0].welcomeblurb);
+            res.render('club');
+        }
+    });
 
 }
 
@@ -207,7 +220,8 @@ var routes = {
     new_club: newClub,
     join_club: joinClub,
     join_club_landing_page: joinClubPage,
-    club_page_admin: clubPageAdmin
+    club_page_admin: clubPageAdmin,
+    club_page: clubPage
 };
 
 module.exports = routes;
