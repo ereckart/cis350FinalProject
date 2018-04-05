@@ -35,6 +35,8 @@ app.get('/conflict', (req, res) => res.render('conflict'));
 app.get('/welcome', (req, res) => res.render('welcome'));
 app.post('/createClub', routes.new_club);
 
+app.post('/editDescription', routes.update_description);
+
 app.get('/join/:clubname', routes.join_club_landing_page)
 
 app.set('port', process.env.PORT || 8080);
