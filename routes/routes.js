@@ -145,7 +145,34 @@ var joinClubPage = function(req, res) {
 }
 
 var joinClub = function(req, res) {
-	console.log('inside join club')
+
+    //Get the current user id and the club they are joining
+	var user = req.session.userid;
+    var clubToJoin = req.cookies.clubToJoin;
+
+    //Add the current user as a member in the club
+    clubDb.addMember(user, clubToJoin, function(error) {
+        if (error) {
+            console.log(error);
+        }
+    });
+
+    //Add the club to the current user's list of clubs
+    userDb.addClub(user, clubToJoin, function(error) {
+        if (error) {
+            console.log(error);
+        }
+    });
+
+    //Add club to clubs cookie
+    var clubsCookie = JSON.parse(req.cookies.clubs);
+    clubsCookie.push(clubToJoin);
+    res.cookie('clubs', JSON.stringify(clubsCookie));
+
+
+    //Redirect to the welcome page
+    res.redirect('/welcome');
+
 }
 
 var clubPageAdmin = function(req, res) {
