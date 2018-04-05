@@ -35,14 +35,11 @@ app.get('/conflict', (req, res) => res.render('conflict'));
 app.get('/welcome', (req, res) => res.render('welcome'));
 app.post('/createClub', routes.new_club);
 
-<<<<<<< HEAD
+
 app.post('/editDescription', routes.update_description);
 
-app.get('/join/:clubname', routes.join_club_landing_page)
-=======
 app.get('/join/:clubname', routes.join_club_landing_page);
 app.get('/join', routes.join_club);
->>>>>>> 465a616675ee28ccd6cc96a41b96410fe23f288e
 
 app.set('port', process.env.PORT || 8080);
 
