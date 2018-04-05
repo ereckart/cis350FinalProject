@@ -16,7 +16,8 @@ var userSchema = new mongoose.Schema({
     userid: {type: String, unique: true, required: true},
     email: {type: String, required: true},
     name: {type: String, required: true},
-    clubs: [String]
+    clubs: [String],
+    adminClubs: [String]
 });
 
 var clubSchema = new mongoose.Schema({
