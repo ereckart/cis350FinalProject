@@ -14,8 +14,9 @@ module.exports = {
     console.log(clubData);
     club.save(function (error) {
       if(error) {
-        callback(error, '');
+        console.log(error)
       }
+      callback(error);
       console.log('got to save function');
     });
   },

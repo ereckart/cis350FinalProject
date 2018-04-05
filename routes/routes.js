@@ -16,9 +16,9 @@ var postLogin = function(req, res){
 	var email = req.body.email;
 	var name = req.body.name;
     var clubs = [];
+    var adminclubs = [];
 
-    var user = {userid: userid, email: email, name: name, clubs: clubs};
-    //res.cookie('clubs', user.clubs);
+    var user = {userid: userid, email: email, name: name, clubs: clubs, adminClubs: adminclubs};
     var userFile = userDb.getUserOrAdd(userid, function (error, users) {
         if (error) {
             console.log(error);
@@ -34,28 +34,20 @@ var postLogin = function(req, res){
                 });
             }
             else {
-                res.cookie('adminclubs', users[0].clubs);
-                var u = users[0];
-                //clubs = ['hi'];
+                clubs = users[0].clubs;
+                adminclubs = users[0].adminClubs;
+                res.cookie('adminclubs', JSON.stringify(adminclubs));
+                res.cookie('clubs', JSON.stringify(clubs));
+                req.session.isLoggedIn = true;
+                req.session.userid = userid;
+                res.cookie('userid', userid);
+                res.cookie('email', email);
+                res.cookie('name', name);
+                res.send('message');
+                console.log("USER:" + users[0]);
             }
         }
     });
-
-    //console.log(userFile);
-
-    console.log(clubs);
-    res.cookie('adminclubs', JSON.stringify(clubs));
-    req.session.isLoggedIn = true;
-    req.session.userid = userid;
-    res.cookie('userid', userid);
-    res.cookie('email', email);
-    res.cookie('name', name);
-
-// check your terminal's console, but req.body is basically a json object
-// with three fields - email, name, and userid.
-
-	res.send('message'); // this is just dummy
-    //res.redirect('/welcome')
 }
 
 var verifyToken = function(req, res) {
@@ -111,27 +103,33 @@ var newClub = function(req, res) {
         } else {
             if(clubs.length == 0) {
                 clubDb.addClub(clubData, function(error) {
+                    console.log('got to add club callback!!');
                     if(error) {
                         console.log(error);
                     }
                     else {
-                        console.log('New User Added!');
+                        var adminclubsCookie = JSON.parse(req.cookies.adminclubs);
+                        adminclubsCookie.push(clubname);
+                        res.cookie('adminclubs', JSON.stringify(adminclubsCookie));
+                        userDb.addAdminClub(req.session.userid, clubname, function(error) {
+                            if(error) {
+                                console.log(error);
+                            }
+                        });
+                        res.cookie('blurb', req.body.welcomemessage);
+                        console.log('New Club Added!');
+                        res.redirect('/welcome');
                     }
                 });
             }
             else {
                 //res.cookie('clubs', users[0].clubs);
                 var u = users[0];
+                res.send('Sorry, this club already exists!')
                 //clubs = ['hi'];
             }
         }
     });
-
-    var adminclubsCookie = JSON.parse(req.cookies.adminclubs);
-    adminclubsCookie.push(clubname);
-    res.cookie('adminclubs', JSON.stringify(adminclubsCookie));
-    res.cookie('blurb', req.body.welcomemessage);
-    res.redirect('/welcome');
 }
 
 var joinClubPage = function(req, res) {
@@ -153,11 +151,23 @@ var clubPageAdmin = function(req, res) {
 	adminId = req.params.adminid;
 	clubname = req.params.clubname;
 
-    res.cookie('clubName', clubname);
+    clubDb.getClubOrAdd(clubname, function(error, clubs) {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            console.log('CLUB:');
+            console.log(clubs[0]);
+            res.cookie('clubName', clubname);
+            res.cookie('blurb', clubs[0].welcomeblurb);
+            res.render('club-admin');
+        }
+    });
+
 
 	// do whatever you want with these two things
 
-	res.render('club-admin');
+	// res.render('club-admin');
 
 }
 

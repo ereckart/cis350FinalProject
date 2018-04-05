@@ -9,7 +9,7 @@
     //populate user list of clubs
     var adminclubs = $.cookie('adminclubs');
     console.log('clubs: ' + adminclubs);
-    var $list = $('#clubList');
+    var $list = $('#adminclubList');
     var clubArray = JSON.parse(adminclubs);
     var adminid = $.cookie('userid');
 
