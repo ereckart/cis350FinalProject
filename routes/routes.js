@@ -273,18 +273,25 @@ var createEvent = function(req, res) {
     console.log('within create Event');
     console.log(req.body);
 
+    r = req.body;
+
     // parse all the things from req.body that contain member and add them to an array
     members = [];
-    for (var key in req.body) {
-        if (req.body[key].contains('member')) {
-            members.push(req.body[key]);
+    for (var key in r) {
+        if (key.includes('member')) {
+            members.push(r[key]);
         }
     }
-    console.log('MEMBERS: ');
-    console.log(members);
 
-    //clubDb.createNewEvent(req.body)
-    res.redirect('/clubpage/' + req.body.clubname + '/admin/' + req.session.userid);
+    // //clubDb.createNewEvent(r.clubname, r.eventTitle, r.eventDate, r.eventStart, r.eventEnd, members, function(error) {
+    //     if (error) {
+    //         console.log(error);
+    //     } else {
+    //         res.redirect('/clubpage/' + req.body.clubname + '/admin/' + req.session.userid);
+    //     }
+    // });
+
+    res.send('new event made');
 }
 
 var routes = {
