@@ -1,4 +1,3 @@
-//OVERALL DESCRIPTION OF WHAT THIS DOES
 (function ($) {
     "use strict";
 

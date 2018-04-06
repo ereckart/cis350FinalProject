@@ -2,12 +2,14 @@ var mongo = require('./mongo');
 
 module.exports = {
 
+    // Get event by eventname.
     getEvent: function (name, callback) {
         return mongo.ClubEvent.find({eventname: name}).exec(function (error, events) {
             callback(error, events);
         });
     },
 
+    // Add a new event.
     addEvent: function (eventData, callback) {
         var event = new mongo.ClubEvent(eventData);
         console.log('inside add Event');

@@ -1,5 +1,4 @@
-//connects to the database
-//contains all of the schemas used within this project
+/* Connect to Database */
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://team38:cis350@ds147668.mlab.com:47668/club-central', function (err) {
     if (err && err.message.includes('ECONNREFUSED')) {
@@ -14,6 +13,7 @@ mongoose.connect('mongodb://team38:cis350@ds147668.mlab.com:47668/club-central',
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 
+/* Set up DB Schemas */
 var userSchema = new mongoose.Schema({
     userid: {type: String, unique: true, required: true},
     email: {type: String, required: true},
