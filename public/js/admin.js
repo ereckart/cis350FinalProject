@@ -39,7 +39,7 @@
         inputString = '<input type="checkbox" class="membercheckbox" id="member"'+ i + ' name="member' + i + '" value="' + memberArray[i] + '">' + memberArray[i];
         $memberListForClubs.append('<li>' + inputString +'</li>');
     }
-    
+
     // Select All Button
     $("#memberSelectAll").click(function () {
         $(".membercheckbox").prop('checked', $(this).prop('checked'));
@@ -48,5 +48,17 @@
 
     // Send the Clubname
     $('#clubname').val(clubName);
+
+    //Populate list of events
+    var events = $.cookie('events');
+    console.log('events ' + events);
+    var $eventList = $('#eventList');
+    var eventArray = JSON.parse(events);
+
+    for (var i = 0; i < eventArray.length; i++) {
+        $eventList.append('<li> "Title: "' + eventArray[i].eventname + " Date: " +
+            eventArray[i].date + " Start Time: " + eventArray[i].starttime +
+            " End Time: " + eventArray[i].endtime + '</li>');
+    }
 
 })(jQuery);
