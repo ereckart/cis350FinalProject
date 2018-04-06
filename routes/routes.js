@@ -231,12 +231,18 @@ var updateDescription = function(req, res) {
 
     clubDb.changeClubDescription(req.body.clubName, req.body.welcomeBlurb, function(error){
         if (error) {
-            console.log('shit got fucked changing club description');
+            console.log(error);
         } else {
             res.send('success');
         }    
     });
     res.redirect('/welcome');
+}
+
+var createEvent = function(req, res) {
+    console.log('within create Event');
+    console.log(req.body);
+    res.send('event created');
 }
 
 var routes = {
@@ -249,7 +255,8 @@ var routes = {
     join_club_landing_page: joinClubPage,
     club_page_admin: clubPageAdmin,
     update_description: updateDescription,
-    club_page: clubPage
+    club_page: clubPage,
+    create_event: createEvent
 };
 
 module.exports = routes;

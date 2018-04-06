@@ -36,7 +36,7 @@ app.post('/submitConflict', routes.submit_conflict);
 
 app.get('/welcome', (req, res) => res.render('welcome'));
 app.post('/createClub', routes.new_club);
-
+app.post('/createEvent', routes.create_event);
 
 app.post('/editDescription', routes.update_description);
 
