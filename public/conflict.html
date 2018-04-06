@@ -91,22 +91,22 @@
       <div class="cta-content">
         <div class="container">
           <h2 id="blurb">Fill Out the Form with your Conflict:</h2>
-          <form>
+          <form action="submitConflict" method="post">
           <div class="form-group">
             <label for="conflictTitle">Title of Conflict:</label>
-            <input type="text" class="form-control" id="conflictTitle" placeholder="ex: conflict title">
+            <input type="text" name="conflictTitle" class="form-control" id="conflictTitle" placeholder="ex: conflict title">
           </div>
           <div class="form-group">
             <label for="date">Conflict Date</label>
-            <input type="text" class="form-control" id="date" placeholder="ex: 1/1/2001">
+            <input type="text" name="conflictDate" class="form-control" id="date" placeholder="ex: 1/1/2001">
           </div>
           <div class="form-group">
             <label for="starttime">Conflict Start Time</label>
-            <input type="text" class="form-control" id="starttime" placeholder="ex: 12:30">
+            <input type="text" name="conflictStart" class="form-control" id="starttime" placeholder="ex: 12:30">
           </div>
           <div class="form-group">
             <label for="endtime">Conflict End Time</label>
-            <input type="text" class="form-control" id="endtime" placeholder="ex: 14:30">
+            <input type="text" name="conflictEnd" class="form-control" id="endtime" placeholder="ex: 14:30">
           </div>
           <div class="form-group" id="search-bar">
             <label for="clubs">Clubs to Notify</label>
@@ -147,6 +147,7 @@
     <!-- Custom scripts for this template -->
     <script src="../../../js/new-age.min.js"></script>
     <script src="../../../js/admin.js"></script>
+    <script src="../../../js/conflict.js"></script>
 
     <!-- Custom script for calendar dropdown -->
     <script src="../../../js/jquery.js"></script>

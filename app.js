@@ -32,6 +32,8 @@ app.get('/club/:clubname', routes.club_page);
 app.get('/clubpage/:clubname/admin/:adminid', routes.club_page_admin);
 
 app.get('/conflict', (req, res) => res.render('conflict'));
+app.post('/submitConflict', routes.submit_conflict);
+
 app.get('/welcome', (req, res) => res.render('welcome'));
 app.post('/createClub', routes.new_club);
 

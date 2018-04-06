@@ -86,6 +86,9 @@ var verifyLogin = function(req, res) {
 
 //DESCRIPTION OF FUNCTION
 var submitConflict = function(req, res) {
+    console.log('within submit conflict');
+    console.log(req.body);
+    console.log("conflict saved");
     res.redirect('/conflict');
 }
 
