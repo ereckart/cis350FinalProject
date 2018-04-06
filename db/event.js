@@ -18,7 +18,7 @@ module.exports = {
             if(error) {
                 callback(error);
             }
-            console.log('got to save event function');
+            callback(error);
         });
     }
 

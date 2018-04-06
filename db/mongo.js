@@ -31,9 +31,9 @@ var clubSchema = new mongoose.Schema({
 
 var eventSchema = new mongoose.Schema({
     clubname: {type: String, required: true},
-    date: {type: Number, required: true},
-    starttime: {type: Number, required: true},
-    endtime: {type: Number, required: true},
+    date: {type: String, required: true},
+    starttime: {type: String, required: true},
+    endtime: {type: String, required: true},
     eventname: {type: String, unique: true, required: true},
     invited: [String]
 });

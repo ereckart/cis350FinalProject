@@ -9,7 +9,7 @@ var GoogleAuth = require('google-auth-library');
 var auth = new GoogleAuth;
 var client = new auth.OAuth2(clientID, clientSecret, redirectUrl);
 
-/* When the user signs in, this function should be called. It either creates a new account or 
+/* When the user signs in, this function should be called. It either creates a new account or
  * logs in. This function handles all database interactions.
  */
 var postLogin = function(req, res){
@@ -286,23 +286,27 @@ var createEvent = function(req, res) {
         }
     }
 
+    console.log(members);
+
     var event = {clubname: club, date: date, starttime: start, endtime: end, eventname: title, invited: members};
+    console.log(event);
     eventDb.getEvent(title, function(error, events) {
+        console.log('checkpoint 0');
         if (error) {
             console.log(error);
         } else {
             if(events.length == 0) {
                 eventDb.addEvent(event, function(error) {
+                    console.log('checkpoint 1');
                     if(error) {
                         console.log(error);
                     }
-                    else {
-                        console.log('New Event Added!');
-                        var eventsArray = [];
-                        eventsArray.push(event);
-                        res.cookie('events', JSON.stringify(eventsArray));
-                        res.redirect('/clubpage/' + club + '/admin/' + req.session.userid);
-                    }
+                    console.log('New Event Added!');
+                    var eventsArray = [];
+                    eventsArray.push(event);
+                    console.log(eventsArray);
+                    res.cookie('events', JSON.stringify(eventsArray));
+                    res.redirect('/clubpage/' + club + '/admin/' + req.session.userid);
                 });
             }
         }
