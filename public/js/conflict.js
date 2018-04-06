@@ -1,5 +1,5 @@
 (function($) {
-    // populate list of clubs
+    // Populate list of clubs
     console.log('within conflict.js')
     
     var adminclubs = $.cookie('adminclubs');

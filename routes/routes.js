@@ -8,9 +8,10 @@ var GoogleAuth = require('google-auth-library');
 var auth = new GoogleAuth;
 var client = new auth.OAuth2(clientID, clientSecret, redirectUrl);
 
-//DESCRIPTION OF FUNCTION
+/* When the user signs in, this function should be called. It either creates a new account or 
+ * logs in. This function handles all database interactions.
+ */
 var postLogin = function(req, res){
-	//console.log('hi');
     console.log(req.body);
 
 	var userid = req.body.userid;
@@ -51,7 +52,7 @@ var postLogin = function(req, res){
     });
 }
 
-//DESCRIPTION OF FUNCTION
+// Function to handle OAuth interactions. Incomplete.
 var verifyToken = function(req, res) {
 	console.log('in verification');
 	console.log(req.body)
@@ -72,7 +73,7 @@ var verifyToken = function(req, res) {
 	res.send('success')
 };
 
-//verifying that login info is correct
+// Function to verify that the user is logged in. Useful for join redirect flow.
 var verifyLogin = function(req, res) {
 	if (req.session.clubToJoin) {
         req.session.isLoggedIn = true;
@@ -84,7 +85,7 @@ var verifyLogin = function(req, res) {
 	};
 };
 
-//user can submit conflict
+// Submit a conflict.
 var submitConflict = function(req, res) {
     console.log('within submit conflict');
     console.log(req.body);
@@ -92,7 +93,7 @@ var submitConflict = function(req, res) {
     res.redirect('/conflict');
 };
 
-//creates a new club
+// Function to create a new club. Handles database interactions and redirects to welcome page when club is added.
 var newClub = function(req, res) {
 	console.log('new club');
 	console.log(req.body);
@@ -141,7 +142,7 @@ var newClub = function(req, res) {
     });
 };
 
-//page display join option
+// Function called when a user tries to join a new club.
 var joinClubPage = function(req, res) {
 	req.session.clubToJoin = req.params.clubname;
 	if (req.session.isLoggedIn) {
@@ -152,7 +153,7 @@ var joinClubPage = function(req, res) {
 	}
 };
 
-//user can join club
+// Function that adds a user to a club.
 var joinClub = function(req, res) {
 
     //Get the current user id and the club they are joining
@@ -184,7 +185,7 @@ var joinClub = function(req, res) {
 
 };
 
-//displays club page for admin
+// Displays club page for admin.
 var clubPageAdmin = function(req, res) {
 	adminId = req.params.adminid;
 	clubname = req.params.clubname;
@@ -225,7 +226,7 @@ var clubPageAdmin = function(req, res) {
     });
 };
 
-//displays clubpage for general member
+// Displays clubpage for general member.
 var clubPage = function(req, res) {
     clubname = req.params.clubname;
 
@@ -245,16 +246,7 @@ var clubPage = function(req, res) {
     });
 };
 
-// for(var i = 0; i < length; i++){
-//   var variable = variables[i];
-//   (function(var){ //start wrapper code
-//     otherVariable.doSomething(var, function(err){ //callback for when doSomething ends
-//       do something else with var; //please note that i'm dealing with var here, not variable
-//     }
-//   })(variable);//passing in variable to var here
-// }
-
-//updates the club description
+// Updates the club description/blurb.
 var updateDescription = function(req, res) {
     console.log('inside update');
     console.log(req.body);
@@ -269,6 +261,7 @@ var updateDescription = function(req, res) {
     res.redirect('/welcome');
 }
 
+// Creates a new event.
 var createEvent = function(req, res) {
     console.log('within create Event');
     console.log(req.body);
@@ -283,7 +276,7 @@ var createEvent = function(req, res) {
         }
     }
 
-    // //clubDb.createNewEvent(r.clubname, r.eventTitle, r.eventDate, r.eventStart, r.eventEnd, members, function(error) {
+    // clubDb.createNewEvent(r.clubname, r.eventTitle, r.eventDate, r.eventStart, r.eventEnd, members, function(error) {
     //     if (error) {
     //         console.log(error);
     //     } else {

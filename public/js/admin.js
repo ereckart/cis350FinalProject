@@ -12,7 +12,7 @@
     //Display club name for This week in...
     $('#thisWeek').text('This week in ' + clubName);
 
-        //Display calendar message
+    //Display calendar message
     $('#checkCal').text('Check out whats going on this week in ' + clubName);
 
     // //Display welcome message
@@ -20,7 +20,7 @@
     // $('#blurb').text(blurb);
 
 
-    //populate list of members
+    // Populate list of members
     var members = $.cookie('members');
     console.log('members ' + members);
     var $memberlist = $('#memberList');
@@ -30,10 +30,9 @@
         $memberlist.append('<li>' + memberArray[i] + '</li>');
     }
 
-    // list of members for add members to event
+    // Populate list of members for new event
     var $memberListForClubs = $('#memberListForClubs');
     if (memberArray.len != 0) {
-        console.log("WE HAVE MEMBERS");
         $memberListForClubs.append('<li><input type="checkbox" id="memberSelectAll" id="selectall"> Select All </li>');
     }
     for (var i = 0; i < memberArray.length; i++) {
@@ -41,13 +40,13 @@
         $memberListForClubs.append('<li>' + inputString +'</li>');
     }
     
-
+    // Select All Button
     $("#memberSelectAll").click(function () {
         $(".membercheckbox").prop('checked', $(this).prop('checked'));
     });
 
 
-    // send the clubname
+    // Send the Clubname
     $('#clubname').val(clubName);
 
 })(jQuery);
