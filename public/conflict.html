@@ -29,6 +29,7 @@
     <!-- CSS for calendar & time dropdowns -->
     <link rel="stylesheet" href="../../../css/jquery-ui.min.css">
     <link rel="stylesheet" href="../../../css/jquery.ui.timepicker.css">
+    <link rel="stylesheet" href="../../../css/jquery-ui-1.10.0.custom.min.css">
 
   </head>
 
@@ -108,10 +109,6 @@
             <input type="text" class="form-control" id="endtime" placeholder="ex: 14:30">
           </div>
           <div class="form-group">
-            <label for="date">Conflict Date</label>
-            <input type="text" class="form-control" id="date" placeholder="ex: 1/1/2001">
-          </div>
-          <div class="form-group">
             <label for="clubs">Clubs to Notify</label>
             <input type="text" class="form-control" id="clubs" placeholder="ex: Masti, WiCS, etc.">
           </div>
@@ -156,16 +153,16 @@
     <script src="../../../js/jquery-ui.min.js"></script>
     <script>
       $(function() {
+        console.log("within datepicker script")
         $("#date").datepicker();
+        $("#starttime").timepicker()
+        $('#endtime').timepicker();
       });
     </script>
 
     <!-- Custom script for timepicker  -->
     <script src="../../../js/jquery.ui.timepicker.js"/>
-    <script src="../../../js/jquery.ui.core.min.js"/>
-    <script src="../../../js/jquery.ui.timepicker.js"/>
-    <script src="../../../js/jquery.ui.tabs.min.js"/>
-    <script src="../../../js/jquery.ui.widget.min.js"/>
+    <script src="../../../js/jquery-1.9.0.min.js"/>
     <script>
       $(function() {
         console.log('within timepicker script')
