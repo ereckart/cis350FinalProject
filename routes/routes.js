@@ -221,14 +221,16 @@ var clubPage = function(req, res) {
 }
 
 var updateDescription = function(req, res) {
+    console.log('inside update');
+    /*console.log(req.body);*/
 
-    clubDb.changeClubDescription(req.body.clubName, req.body.welcomeBlurb, function(error){
+    /*clubDb.changeClubDescription(req.body.clubName, req.body.welcomeBlurb, function(error){
         if (error) {
             console.log('shit got fucked changing club description');
         } else {
             res.send('success');
         }    
-    });
+    });*/
 }
 
 var routes = {

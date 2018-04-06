@@ -41,6 +41,7 @@ app.post('/editDescription', routes.update_description);
 app.get('/join/:clubname', routes.join_club_landing_page);
 app.get('/join', routes.join_club);
 
+
 app.set('port', process.env.PORT || 8080);
 
 var server = app.listen(app.get('port'), function () {
