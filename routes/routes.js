@@ -72,7 +72,7 @@ var verifyToken = function(req, res) {
 	res.send('success')
 };
 
-//DESCRIPTION OF FUNCTION
+//verifying that login info is correct
 var verifyLogin = function(req, res) {
 	if (req.session.clubToJoin) {
         req.session.isLoggedIn = true;
@@ -84,7 +84,7 @@ var verifyLogin = function(req, res) {
 	};
 };
 
-//DESCRIPTION OF FUNCTION
+//user can submit conflict
 var submitConflict = function(req, res) {
     console.log('within submit conflict');
     console.log(req.body);
@@ -92,7 +92,7 @@ var submitConflict = function(req, res) {
     res.redirect('/conflict');
 };
 
-//DESCRIPTION OF FUNCTION
+//creates a new club
 var newClub = function(req, res) {
 	console.log('new club');
 	console.log(req.body);
