@@ -3,6 +3,7 @@ var clientSecret = 'M2bVdirEI6D3giseHeZGvRRa';
 var redirectUrl = 'http://localhost:8080/tokensignin';
 var userDb = require('../db/login');
 var clubDb = require('../db/club');
+var eventDb = require('../db/event');
 
 var GoogleAuth = require('google-auth-library');
 var auth = new GoogleAuth;
@@ -261,12 +262,21 @@ var updateDescription = function(req, res) {
     res.redirect('/welcome');
 }
 
+
 // Creates a new event.
 var createEvent = function(req, res) {
     console.log('within create Event');
     console.log(req.body);
 
+
+    //get event infor from req.body
+    var title = req.body.eventTitle;
+    var date = req.body.eventDate;
+    var start = req.body.eventStart;
+    var end = req.body.eventEnd;
+    var club = req.body.clubname;
     r = req.body;
+
 
     // parse all the things from req.body that contain member and add them to an array
     members = [];
@@ -276,16 +286,29 @@ var createEvent = function(req, res) {
         }
     }
 
-    // clubDb.createNewEvent(r.clubname, r.eventTitle, r.eventDate, r.eventStart, r.eventEnd, members, function(error) {
-    //     if (error) {
-    //         console.log(error);
-    //     } else {
-    //         res.redirect('/clubpage/' + req.body.clubname + '/admin/' + req.session.userid);
-    //     }
-    // });
-
-    res.send('new event made');
+    var event = {clubname: club, date: date, starttime: start, endtime: end, eventname: title, invited: members};
+    eventDb.getEvent(title, function(error, events) {
+        if (error) {
+            console.log(error);
+        } else {
+            if(events.length == 0) {
+                eventDb.addEvent(event, function(error) {
+                    if(error) {
+                        console.log(error);
+                    }
+                    else {
+                        console.log('New Event Added!');
+                        var eventsArray = [];
+                        eventsArray.push(event);
+                        res.cookie('events', JSON.stringify(eventsArray));
+                        res.redirect('/clubpage/' + club + '/admin/' + req.session.userid);
+                    }
+                });
+            }
+        }
+    });
 }
+
 
 var routes = {
 	post_login: postLogin,

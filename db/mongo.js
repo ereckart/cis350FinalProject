@@ -30,12 +30,11 @@ var clubSchema = new mongoose.Schema({
 });
 
 var eventSchema = new mongoose.Schema({
-    eventid: {type: String, unique: true, required: true},
+    clubname: {type: String, required: true},
     date: {type: Number, required: true},
     starttime: {type: Number, required: true},
     endtime: {type: Number, required: true},
-    eventname: {type: String, required: true},
-    location: {type: String, required: true},
+    eventname: {type: String, unique: true, required: true},
     invited: [String]
 });
 
