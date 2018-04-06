@@ -32,8 +32,11 @@
 
     var $memberListForClubs = $('#memberListForClubs');
     for (var i = 0; i < memberArray.length; i++) {
-        $memberListForClubs.append('<li>' + '')
+        inputString = '<input type="checkbox" id="member"'+ i + ' name="member' + i + '" value="' + memberArray[i] + '">' + memberArray[i];
+        $memberListForClubs.append('<li>' + inputString +'</li>');
     }
 
+    // send the clubname
+    $('#clubname').val(clubName);
 
 })(jQuery);

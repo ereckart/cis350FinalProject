@@ -272,7 +272,8 @@ var updateDescription = function(req, res) {
 var createEvent = function(req, res) {
     console.log('within create Event');
     console.log(req.body);
-    res.send('event created');
+    
+    res.redirect('/clubpage/' + req.body.clubname + '/admin/' + req.session.userid);
 }
 
 var routes = {
