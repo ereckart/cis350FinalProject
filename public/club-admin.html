@@ -17,7 +17,8 @@
     <link rel="stylesheet" href="../../../vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../../../vendor/simple-line-icons/css/simple-line-icons.css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" 
+      rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
     <!-- Plugin CSS -->
@@ -39,7 +40,9 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">Club Central</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" 
+        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" 
+        aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
         </button>
@@ -74,11 +77,13 @@
               <div class="device-mockup iphone6_plus portrait white">
                 <div class="device">
                   <div class="screen">
-                    <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+                    <!-- Demo image for screen mockup, you can put an image here, some HTML, an 
+                      animation, video, or anything else! -->
                     <img src="img/demo-screen-1.jpg" class="img-fluid" alt="">
                   </div>
                   <div class="button">
-                    <!-- You can hook the "home button" to some JavaScript events or just remove it -->
+                    <!-- You can hook the "home button" to some JavaScript events or just remove 
+                      it -->
                   </div>
                 </div>
               </div>
@@ -115,15 +120,13 @@
     <section class="cta">
       <div class="cta-content">
         <div class="container">
-          <h2>Edit Club Page</h2>
+          <h2>Edit Club Description</h2>
           <form action="../../../editDescription" method="post">
           <div class="form-group">
-            <label for="formGroupExampleInput">Club Name</label>
-            <input type="text" class="form-control" name="clubName" id="formGroupExampleInput" placeholder="Example Club Name">
-          </div>
-          <div class="form-group">
-            <label for="formGroupExampleInput2">Welcome Message (a short blurb about your club)</label>
-            <input type="text" class="form-control" name="welcomeBlurb" id="formGroupExampleInput2" placeholder="Your blurb">
+            <label for="formGroupExampleInput2">Welcome Message (a short blurb about your club)
+            </label>
+            <input type="text" class="form-control" name="welcomeBlurb" id="formGroupExampleInput2" 
+            placeholder="Your blurb">
           </div>
            <button type="submit" class="btn btn-primary">Save Changes</button>
         </form>
@@ -138,23 +141,28 @@
         <form action="../../../createEvent" method="post">
           <div class="form-group">
             <label for="eventTitle">Title of Event:</label>
-            <input type="text" name="eventTitle" class="form-control" id="eventTitle" placeholder="ex: conflict title">
+            <input type="text" name="eventTitle" class="form-control" id="eventTitle" 
+            placeholder="ex: conflict title">
           </div>
           <div class="form-group">
             <label for="date">Event Date</label>
-            <input type="text" name="eventDate" class="form-control" id="date" placeholder="ex: 1/1/2001">
+            <input type="text" name="eventDate" class="form-control" id="date" 
+            placeholder="ex: 1/1/2001">
           </div>
           <div class="form-group">
             <label for="starttime">Event Start Time</label>
-            <input type="text" name="eventStart" class="form-control" id="starttime" placeholder="ex: 12:30">
+            <input type="text" name="eventStart" class="form-control" id="starttime" 
+            placeholder="ex: 12:30">
           </div>
           <div class="form-group">
             <label for="endtime">Event End Time</label>
-            <input type="text" name="eventEnd" class="form-control" id="endtime" placeholder="ex: 14:30">
+            <input type="text" name="eventEnd" class="form-control" id="endtime" 
+            placeholder="ex: 14:30">
           </div>
           <div class="form-group" id="search-bar">
             <label for="clubs">Members to Notify</label>
-            <ul class="memberListForClubs" id="memberListForClubs" style="list-style-type:none"></ul>
+            <ul class="memberListForClubs" id="memberListForClubs" 
+            style="list-style-type:none"></ul>
           </div>
           <input hidden id="clubname" type="text" name="clubname">
           <button type="submit" class="btn btn-primary">Create Event</button>
