@@ -143,7 +143,6 @@ var newClub = function(req, res) {
 
 //page display join option
 var joinClubPage = function(req, res) {
-	console.log('inside join club page');
 	req.session.clubToJoin = req.params.clubname;
 	if (req.session.isLoggedIn) {
 		res.cookie('clubToJoin', req.params.clubname);
@@ -209,23 +208,16 @@ var clubPageAdmin = function(req, res) {
                 var curri = i;
                 (function(currmember, icurrent) {
                 userDb.getUserOrAdd(currmember, function(error, users) {
-                    console.log('in hereeeee');
-                    console.log('i inside get function ' + icurrent);
                     if (error) {
                         console.log(error);
                     }
                     members.push(users[0].name);
-                    console.log('Members in ' + members);
-                    console.log(memberids.length - 1);
-                    console.log(icurrent);
                     if(icurrent === (memberids.length - 1)) {
-                        console.log('we reached the end');
                         res.cookie('members', JSON.stringify(members));
                         res.cookie('clubName', clubname);
                         res.cookie('blurb', clubs[0].welcomeblurb);
                         res.render('club-admin');
                     }
-                    console.log('checkpoint 5');
                 });
                 })(currid, curri);
             }
@@ -272,7 +264,7 @@ var updateDescription = function(req, res) {
             console.log(error);
         } else {
             res.send('success');
-        }    
+        }
     });
     res.redirect('/welcome');
 }
