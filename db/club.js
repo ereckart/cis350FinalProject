@@ -38,7 +38,7 @@ module.exports = {
 
     //change club description
     changeClubDescription: function(id, newDescription, callback) {
-        /*var myquery = {clubname: id};
+        var myquery = {clubname: id};
         var newvalues = { $set: {welcomeblurb: newDescription}};
         mongo.Club.updateOne(myquery, newvalues, function(err) {
             if (err) {
@@ -46,7 +46,7 @@ module.exports = {
                 console.log('inside changeClubDescription');
             }
             console.log('changed club description');
-        });*/
+        });
     },
 
   addClub: function (clubData, callback) {
