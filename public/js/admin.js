@@ -30,5 +30,10 @@
         $memberlist.append('<li>' + memberArray[i] + '</li>');
     }
 
+    var $memberListForClubs = $('#memberListForClubs');
+    for (var i = 0; i < memberArray.length; i++) {
+        $memberListForClubs.append('<li>' + '')
+    }
+
 
 })(jQuery);
