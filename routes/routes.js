@@ -3,6 +3,7 @@ var clientSecret = 'M2bVdirEI6D3giseHeZGvRRa';
 var redirectUrl = 'http://localhost:8080/tokensignin';
 var userDb = require('../db/login');
 var clubDb = require('../db/club');
+var eventDb = require('../db/event');
 
 var GoogleAuth = require('google-auth-library');
 var auth = new GoogleAuth;
@@ -245,14 +246,6 @@ var clubPage = function(req, res) {
     });
 };
 
-// for(var i = 0; i < length; i++){
-//   var variable = variables[i];
-//   (function(var){ //start wrapper code
-//     otherVariable.doSomething(var, function(err){ //callback for when doSomething ends
-//       do something else with var; //please note that i'm dealing with var here, not variable
-//     }
-//   })(variable);//passing in variable to var here
-// }
 
 //updates the club description
 var updateDescription = function(req, res) {
@@ -269,9 +262,17 @@ var updateDescription = function(req, res) {
     res.redirect('/welcome');
 }
 
+//creates a new event
 var createEvent = function(req, res) {
     console.log('within create Event');
     console.log(req.body);
+
+    //get event infor from req.body
+    var title = req.body.eventTitle;
+    var date = req.body.eventDate;
+    var start = req.body.eventStart;
+    var end = req.body.eventEnd;
+    var club = req.body.clubname;
 
     // parse all the things from req.body that contain member and add them to an array
     members = [];
@@ -283,8 +284,30 @@ var createEvent = function(req, res) {
     console.log('MEMBERS: ');
     console.log(members);
 
+    var event = {clubname: club, date: date, starttime: start, endtime: end, eventname: title, invited: members};
+    eventDb.getEvent(title, function(error, events) {
+        if (error) {
+            console.log(error);
+        } else {
+            if(events.length == 0) {
+                eventDb.addEvent(event, function(error) {
+                    if(error) {
+                        console.log(error);
+                    }
+                    else {
+                        console.log('New Event Added!');
+                        var eventsArray = [];
+                        eventsArray.push(event);
+                        res.cookie('events', JSON.stringify(eventsArray));
+                        res.redirect('/clubpage/' + club + '/admin/' + req.session.userid);
+
+                    }
+                });
+            }
+        }
+    });
+
     //clubDb.createNewEvent(req.body)
-    res.redirect('/clubpage/' + req.body.clubname + '/admin/' + req.session.userid);
 }
 
 var routes = {
