@@ -94,7 +94,8 @@ var submitConflict = function(req, res) {
     res.redirect('/conflict');
 };
 
-// Function to create a new club. Handles database interactions and redirects to welcome page when club is added.
+// Function to create a new club. Handles database interactions and redirects to welcome 
+// page when club is added.
 var newClub = function(req, res) {
 	console.log('new club');
 	console.log(req.body);
@@ -286,7 +287,12 @@ var createEvent = function(req, res) {
         }
     }
 
-    var event = {clubname: club, date: date, starttime: start, endtime: end, eventname: title, invited: members};
+    var event = {clubname: club, 
+                 date: date, 
+                 starttime: start, 
+                 endtime: end, 
+                 eventname: title, 
+                 invited: members};
     eventDb.getEvent(title, function(error, events) {
         if (error) {
             console.log(error);
