@@ -1,3 +1,5 @@
+//connects to the database
+//contains all of the schemas used within this project
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://team38:cis350@ds147668.mlab.com:47668/club-central', function (err) {
     if (err && err.message.includes('ECONNREFUSED')) {

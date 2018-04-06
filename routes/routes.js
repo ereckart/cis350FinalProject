@@ -73,7 +73,7 @@ var verifyToken = function(req, res) {
 	res.send('success')
 };
 
-//DESCRIPTION OF FUNCTION
+//verifying that login info is correct
 var verifyLogin = function(req, res) {
 	if (req.session.clubToJoin) {
         req.session.isLoggedIn = true;
@@ -85,7 +85,7 @@ var verifyLogin = function(req, res) {
 	};
 };
 
-//DESCRIPTION OF FUNCTION
+//user can submit conflict
 var submitConflict = function(req, res) {
     console.log('within submit conflict');
     console.log(req.body);
@@ -93,7 +93,7 @@ var submitConflict = function(req, res) {
     res.redirect('/conflict');
 };
 
-//DESCRIPTION OF FUNCTION
+//creates a new club
 var newClub = function(req, res) {
 	console.log('new club');
 	console.log(req.body);
@@ -267,22 +267,24 @@ var createEvent = function(req, res) {
     console.log('within create Event');
     console.log(req.body);
 
+
     //get event infor from req.body
     var title = req.body.eventTitle;
     var date = req.body.eventDate;
     var start = req.body.eventStart;
     var end = req.body.eventEnd;
     var club = req.body.clubname;
+    r = req.body;
+
 
     // parse all the things from req.body that contain member and add them to an array
     members = [];
-    for (var key in req.body) {
-        if (req.body[key].contains('member')) {
-            members.push(req.body[key]);
+    for (var key in r) {
+        if (key.includes('member')) {
+            members.push(r[key]);
         }
     }
-    console.log('MEMBERS: ');
-    console.log(members);
+
 
     var event = {clubname: club, date: date, starttime: start, endtime: end, eventname: title, invited: members};
     eventDb.getEvent(title, function(error, events) {
@@ -306,9 +308,8 @@ var createEvent = function(req, res) {
             }
         }
     });
-
-    //clubDb.createNewEvent(req.body)
 }
+
 
 var routes = {
 	post_login: postLogin,

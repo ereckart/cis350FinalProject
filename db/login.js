@@ -2,21 +2,21 @@ var mongo = require('./mongo');
 
 module.exports = {
 
-  //DESCRIPTION OF FUNCTION
+  //gets user if not found adds user
   getUserOrAdd: function (id, callback) {
     return mongo.User.find({userid: id}).exec(function (error, users) {
       callback(error, users);
     });
   },
 
-  //DESCRIPTION OF FUNCTION
+  //gets user
   getUser: function (id) {
     mongo.User.find({userid: id}, function(err, users) {
 
     });
   },
 
-  //DESCRIPTION OF FUNCTION
+  //adds user
   addUser: function (userData, callback) {
     console.log('got to add user function!');
     var user = new mongo.User(userData);
@@ -31,6 +31,7 @@ module.exports = {
     });
   },
 
+  //adds a club to the admin
   addAdminClub: function(id, adminClub, callback) {
     mongo.User.find({userid: id}, function(err, users){
       if (err) console.log(err);
@@ -45,6 +46,7 @@ module.exports = {
     });
   },
 
+  //adds a club to the user
   addClub: function(id, club, callback) {
     console.log('Adding club to the user doc!');
     mongo.User.find({userid: id}, function(err, users){
