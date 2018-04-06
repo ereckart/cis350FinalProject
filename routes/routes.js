@@ -8,6 +8,7 @@ var GoogleAuth = require('google-auth-library');
 var auth = new GoogleAuth;
 var client = new auth.OAuth2(clientID, clientSecret, redirectUrl);
 
+//DESCRIPTION OF FUNCTION
 var postLogin = function(req, res){
 	//console.log('hi');
     console.log(req.body);
@@ -50,6 +51,7 @@ var postLogin = function(req, res){
     });
 }
 
+//DESCRIPTION OF FUNCTION
 var verifyToken = function(req, res) {
 	console.log('in verification');
 	console.log(req.body)
@@ -70,6 +72,7 @@ var verifyToken = function(req, res) {
 	res.send('success')
 };
 
+//DESCRIPTION OF FUNCTION
 var verifyLogin = function(req, res) {
 	if (req.session.clubToJoin) {
         req.session.isLoggedIn = true;
@@ -81,10 +84,12 @@ var verifyLogin = function(req, res) {
 	};
 };
 
+//DESCRIPTION OF FUNCTION
 var submitConflict = function(req, res) {
     res.redirect('/conflict');
 }
 
+//DESCRIPTION OF FUNCTION
 var newClub = function(req, res) {
 	console.log('new club');
 	console.log(req.body);
@@ -133,6 +138,7 @@ var newClub = function(req, res) {
     });
 }
 
+//DESCRIPTION OF FUNCTION
 var joinClubPage = function(req, res) {
 	console.log('inside join club page');
 	req.session.clubToJoin = req.params.clubname;
@@ -144,6 +150,7 @@ var joinClubPage = function(req, res) {
 	}
 }
 
+//DESCRIPTION OF FUNCTION
 var joinClub = function(req, res) {
 
     //Get the current user id and the club they are joining
@@ -175,6 +182,7 @@ var joinClub = function(req, res) {
 
 }
 
+//DESCRIPTION OF FUNCTION
 var clubPageAdmin = function(req, res) {
 	adminId = req.params.adminid;
 	clubname = req.params.clubname;
@@ -192,11 +200,37 @@ var clubPageAdmin = function(req, res) {
         }
     });
 
+}
 
-	// do whatever you want with these two things
+var clubPage = function(req, res) {
+    clubname = req.params.clubname;
 
-	// res.render('club-admin');
+    clubDb.getClubOrAdd(clubname, function(error, clubs) {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            console.log('CLUB:');
+            console.log(clubs[0]);
+            res.cookie('clubName', clubname);
+            res.cookie('blurb', clubs[0].welcomeblurb);
+            res.render('club');
+        }
+    });
 
+}
+
+var updateDescription = function(req, res) {
+    console.log('inside update');
+    /*console.log(req.body);*/
+
+    /*clubDb.changeClubDescription(req.body.clubName, req.body.welcomeBlurb, function(error){
+        if (error) {
+            console.log('shit got fucked changing club description');
+        } else {
+            res.send('success');
+        }    
+    });*/
 }
 
 var routes = {
@@ -207,7 +241,9 @@ var routes = {
     new_club: newClub,
     join_club: joinClub,
     join_club_landing_page: joinClubPage,
-    club_page_admin: clubPageAdmin
+    club_page_admin: clubPageAdmin,
+    update_description: updateDescription,
+    club_page: clubPage
 };
 
 module.exports = routes;

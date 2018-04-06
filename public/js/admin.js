@@ -12,6 +12,9 @@
     //Display club name for This week in...
     $('#thisWeek').text('This week in ' + clubName);
 
+        //Display calendar message
+    $('#checkCal').text('Check out whats going on this week in ' + clubName);
+
     // //Display welcome message
     // var blurb = $.cookie('blurb');
     // $('#blurb').text(blurb);
