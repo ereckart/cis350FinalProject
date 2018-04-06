@@ -272,7 +272,18 @@ var updateDescription = function(req, res) {
 var createEvent = function(req, res) {
     console.log('within create Event');
     console.log(req.body);
-    
+
+    // parse all the things from req.body that contain member and add them to an array
+    members = [];
+    for (var key in req.body) {
+        if (req.body[key].contains('member')) {
+            members.push(req.body[key]);
+        }
+    }
+    console.log('MEMBERS: ');
+    console.log(members);
+
+    //clubDb.createNewEvent(req.body)
     res.redirect('/clubpage/' + req.body.clubname + '/admin/' + req.session.userid);
 }
 
