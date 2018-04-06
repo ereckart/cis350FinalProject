@@ -20,16 +20,15 @@
     // $('#blurb').text(blurb);
 
 
-    // //populate user list of clubs
-    // var clubs = $.cookie('clubs');
-    // console.log('clubs: ' + clubs);
-    // //clubs = clubs.slice(2);
-    // var $list = $('#clubList');
-    // var clubArray = JSON.parse(clubs);
+    //populate list of members
+    var members = $.cookie('members');
+    console.log('members ' + members);
+    var $memberlist = $('#memberList');
+    var memberArray = JSON.parse(members);
 
-    // for (var i = 0; i < clubArray.length; i++) {
-    //     $list.append('<li>' + clubArray[i] + '</li>');
-    // }
+    for (var i = 0; i < memberArray.length; i++) {
+        $memberlist.append('<li>' + memberArray[i] + '</li>');
+    }
 
 
 })(jQuery);

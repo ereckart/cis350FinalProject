@@ -83,7 +83,7 @@ var verifyLogin = function(req, res) {
 
 var submitConflict = function(req, res) {
     res.redirect('/conflict');
-}
+};
 
 var newClub = function(req, res) {
 	console.log('new club');
@@ -131,7 +131,7 @@ var newClub = function(req, res) {
             }
         }
     });
-}
+};
 
 var joinClubPage = function(req, res) {
 	console.log('inside join club page');
@@ -142,7 +142,7 @@ var joinClubPage = function(req, res) {
 	} else {
 		res.redirect('/');
 	}
-}
+};
 
 var joinClub = function(req, res) {
 
@@ -173,7 +173,7 @@ var joinClub = function(req, res) {
     //Redirect to the welcome page
     res.redirect('/welcome');
 
-}
+};
 
 var clubPageAdmin = function(req, res) {
 	adminId = req.params.adminid;
@@ -184,33 +184,71 @@ var clubPageAdmin = function(req, res) {
             console.log(error);
         }
         else {
+
             console.log('CLUB:');
             console.log(clubs[0]);
-            res.cookie('clubName', clubname);
-            res.cookie('blurb', clubs[0].welcomeblurb);
-            res.render('club-admin');
+
+            var memberids = clubs[0].members
+            var members = [];
+
+            for(var i = 0; i < memberids.length; i++) {
+                console.log(i);
+                console.log(memberids[i]);
+                var currid = memberids[i];
+                var curri = i;
+                (function(currmember, icurrent) {
+                userDb.getUserOrAdd(currmember, function(error, users) {
+                    console.log('in hereeeee');
+                    console.log('i inside get function ' + icurrent);
+                    if (error) {
+                        console.log(error);
+                    }
+                    members.push(users[0].name);
+                    console.log('Members in ' + members);
+                    console.log(memberids.length - 1);
+                    console.log(icurrent);
+                    if(icurrent === (memberids.length - 1)) {
+                        console.log('we reached the end');
+                        res.cookie('members', JSON.stringify(members));
+                        res.cookie('clubName', clubname);
+                        res.cookie('blurb', clubs[0].welcomeblurb);
+                        res.render('club-admin');
+                    }
+                    console.log('checkpoint 5');
+                });
+                })(currid, curri);
+            }
         }
     });
-
-}
+};
 
 var clubPage = function(req, res) {
     clubname = req.params.clubname;
 
     clubDb.getClubOrAdd(clubname, function(error, clubs) {
+        console.log('IN HERE');
         if (error) {
             console.log(error);
         }
         else {
             console.log('CLUB:');
             console.log(clubs[0]);
+
             res.cookie('clubName', clubname);
             res.cookie('blurb', clubs[0].welcomeblurb);
             res.render('club');
         }
     });
+};
 
-}
+// for(var i = 0; i < length; i++){
+//   var variable = variables[i];
+//   (function(var){ //start wrapper code
+//     otherVariable.doSomething(var, function(err){ //callback for when doSomething ends
+//       do something else with var; //please note that i'm dealing with var here, not variable
+//     }
+//   })(variable);//passing in variable to var here
+// }
 
 var routes = {
 	post_login: postLogin,

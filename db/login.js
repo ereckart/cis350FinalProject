@@ -8,12 +8,6 @@ module.exports = {
     });
   },
 
-  getUser: function (id) {
-    mongo.User.find({userid: id}, function(err, users) {
-
-    });
-  },
-
   addUser: function (userData, callback) {
     console.log('got to add user function!');
     var user = new mongo.User(userData);
@@ -48,11 +42,13 @@ module.exports = {
       if (err) console.log(err);
 
       var newClubs = users[0].clubs;
-      newClubs.push(club);
-      console.log("new Clubs:");
-      console.log(newClubs);
+      if(! newClubs.includes(clubs)) {
+        newClubs.push(club);
+        console.log("new Clubs:");
+        console.log(newClubs);
 
-      mongo.User.update({userid: id}, {$set: {clubs: newClubs}}, callback);
+        mongo.User.update({userid: id}, {$set: {clubs: newClubs}}, callback);
+      }
 
     });
   }

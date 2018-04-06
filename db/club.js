@@ -26,11 +26,13 @@ module.exports = {
       if (err) console.log(err);
 
       var newMembers = clubs[0].members;
-      newMembers.push(user);
-      console.log("new Members:");
-      console.log(newMembers);
+      if(! newMembers.includes(user)) {
+        newMembers.push(user);
+        console.log("new Members:");
+        console.log(newMembers);
 
-      mongo.Club.update({clubname: club}, {$set: {members: newMembers}}, callback);
+        mongo.Club.update({clubname: club}, {$set: {members: newMembers}}, callback);
+      }
 
     });
   }
