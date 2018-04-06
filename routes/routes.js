@@ -8,6 +8,7 @@ var GoogleAuth = require('google-auth-library');
 var auth = new GoogleAuth;
 var client = new auth.OAuth2(clientID, clientSecret, redirectUrl);
 
+//DESCRIPTION OF FUNCTION
 var postLogin = function(req, res){
 	//console.log('hi');
     console.log(req.body);
@@ -50,6 +51,7 @@ var postLogin = function(req, res){
     });
 }
 
+//DESCRIPTION OF FUNCTION
 var verifyToken = function(req, res) {
 	console.log('in verification');
 	console.log(req.body)
@@ -70,6 +72,7 @@ var verifyToken = function(req, res) {
 	res.send('success')
 };
 
+//DESCRIPTION OF FUNCTION
 var verifyLogin = function(req, res) {
 	if (req.session.clubToJoin) {
         req.session.isLoggedIn = true;
@@ -81,10 +84,15 @@ var verifyLogin = function(req, res) {
 	};
 };
 
+//DESCRIPTION OF FUNCTION
 var submitConflict = function(req, res) {
+    console.log('within submit conflict');
+    console.log(req.body);
+    console.log("conflict saved");
     res.redirect('/conflict');
 };
 
+//DESCRIPTION OF FUNCTION
 var newClub = function(req, res) {
 	console.log('new club');
 	console.log(req.body);
@@ -133,6 +141,7 @@ var newClub = function(req, res) {
     });
 };
 
+//page display join option
 var joinClubPage = function(req, res) {
 	console.log('inside join club page');
 	req.session.clubToJoin = req.params.clubname;
@@ -144,6 +153,7 @@ var joinClubPage = function(req, res) {
 	}
 };
 
+//user can join club
 var joinClub = function(req, res) {
 
     //Get the current user id and the club they are joining
@@ -175,6 +185,7 @@ var joinClub = function(req, res) {
 
 };
 
+//displays club page for admin
 var clubPageAdmin = function(req, res) {
 	adminId = req.params.adminid;
 	clubname = req.params.clubname;
@@ -222,6 +233,7 @@ var clubPageAdmin = function(req, res) {
     });
 };
 
+//displays clubpage for general member
 var clubPage = function(req, res) {
     clubname = req.params.clubname;
 
@@ -250,6 +262,27 @@ var clubPage = function(req, res) {
 //   })(variable);//passing in variable to var here
 // }
 
+//updates the club description
+var updateDescription = function(req, res) {
+    console.log('inside update');
+    console.log(req.body);
+
+    clubDb.changeClubDescription(req.body.clubName, req.body.welcomeBlurb, function(error){
+        if (error) {
+            console.log(error);
+        } else {
+            res.send('success');
+        }    
+    });
+    res.redirect('/welcome');
+}
+
+var createEvent = function(req, res) {
+    console.log('within create Event');
+    console.log(req.body);
+    res.send('event created');
+}
+
 var routes = {
 	post_login: postLogin,
 	verify_token: verifyToken,
@@ -259,7 +292,9 @@ var routes = {
     join_club: joinClub,
     join_club_landing_page: joinClubPage,
     club_page_admin: clubPageAdmin,
-    club_page: clubPage
+    update_description: updateDescription,
+    club_page: clubPage,
+    create_event: createEvent
 };
 
 module.exports = routes;

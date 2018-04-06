@@ -29,6 +29,7 @@
     <!-- CSS for calendar & time dropdowns -->
     <link rel="stylesheet" href="../../../css/jquery-ui.min.css">
     <link rel="stylesheet" href="../../../css/jquery.ui.timepicker.css">
+    <link rel="stylesheet" href="../../../css/jquery-ui-1.10.0.custom.min.css">
 
   </head>
 
@@ -90,30 +91,26 @@
       <div class="cta-content">
         <div class="container">
           <h2 id="blurb">Fill Out the Form with your Conflict:</h2>
-          <form>
+          <form action="submitConflict" method="post">
           <div class="form-group">
             <label for="conflictTitle">Title of Conflict:</label>
-            <input type="text" class="form-control" id="conflictTitle" placeholder="ex: conflict title">
+            <input type="text" name="conflictTitle" class="form-control" id="conflictTitle" placeholder="ex: conflict title">
           </div>
           <div class="form-group">
             <label for="date">Conflict Date</label>
-            <input type="text" class="form-control" id="date" placeholder="ex: 1/1/2001">
+            <input type="text" name="conflictDate" class="form-control" id="date" placeholder="ex: 1/1/2001">
           </div>
           <div class="form-group">
             <label for="starttime">Conflict Start Time</label>
-            <input type="text" class="form-control" id="starttime" placeholder="ex: 12:30">
+            <input type="text" name="conflictStart" class="form-control" id="starttime" placeholder="ex: 12:30">
           </div>
           <div class="form-group">
             <label for="endtime">Conflict End Time</label>
-            <input type="text" class="form-control" id="endtime" placeholder="ex: 14:30">
+            <input type="text" name="conflictEnd" class="form-control" id="endtime" placeholder="ex: 14:30">
           </div>
-          <div class="form-group">
-            <label for="date">Conflict Date</label>
-            <input type="text" class="form-control" id="date" placeholder="ex: 1/1/2001">
-          </div>
-          <div class="form-group">
+          <div class="form-group" id="search-bar">
             <label for="clubs">Clubs to Notify</label>
-            <input type="text" class="form-control" id="clubs" placeholder="ex: Masti, WiCS, etc.">
+            <ul class="clubsList" id="clubsList" style="list-style-type:none"></ul>
           </div>
            <button type="submit" class="btn btn-primary">Save Changes</button>
         </form>
@@ -140,7 +137,7 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-   <script src="../../../vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="../../../vendor/jquery/jquery-3.2.1.min.js"></script>
     <script src="../../../vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../../vendor/jquery/jquery.cookie.js"></script>
 
@@ -150,22 +147,23 @@
     <!-- Custom scripts for this template -->
     <script src="../../../js/new-age.min.js"></script>
     <script src="../../../js/admin.js"></script>
+    <script src="../../../js/conflict.js"></script>
 
     <!-- Custom script for calendar dropdown -->
     <script src="../../../js/jquery.js"></script>
     <script src="../../../js/jquery-ui.min.js"></script>
     <script>
       $(function() {
+        console.log("within datepicker script")
         $("#date").datepicker();
+        $("#starttime").timepicker()
+        $('#endtime').timepicker();
       });
     </script>
 
     <!-- Custom script for timepicker  -->
     <script src="../../../js/jquery.ui.timepicker.js"/>
-    <script src="../../../js/jquery.ui.core.min.js"/>
-    <script src="../../../js/jquery.ui.timepicker.js"/>
-    <script src="../../../js/jquery.ui.tabs.min.js"/>
-    <script src="../../../js/jquery.ui.widget.min.js"/>
+    <script src="../../../js/jquery-1.9.0.min.js"/>
     <script>
       $(function() {
         console.log('within timepicker script')

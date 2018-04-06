@@ -26,6 +26,11 @@
     <!-- Custom styles for this template -->
     <link href="../../../css/new-age.min.css" rel="stylesheet">
 
+    <!-- CSS for calendar & time dropdowns -->
+    <link rel="stylesheet" href="../../../css/jquery-ui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery.ui.timepicker.css">
+    <link rel="stylesheet" href="../../../css/jquery-ui-1.10.0.custom.min.css">
+
   </head>
 
   <body id="page-top">
@@ -110,14 +115,14 @@
       <div class="cta-content">
         <div class="container">
           <h2>Edit Club Page</h2>
-          <form>
+          <form action="../../../editDescription" method="post">
           <div class="form-group">
             <label for="formGroupExampleInput">Club Name</label>
-            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example Club Name">
+            <input type="text" class="form-control" name="clubName" id="formGroupExampleInput" placeholder="Example Club Name">
           </div>
           <div class="form-group">
             <label for="formGroupExampleInput2">Welcome Message (a short blurb about your club)</label>
-            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Your blurb">
+            <input type="text" class="form-control" name="welcomeBlurb" id="formGroupExampleInput2" placeholder="Your blurb">
           </div>
            <button type="submit" class="btn btn-primary">Save Changes</button>
         </form>
@@ -125,31 +130,35 @@
       </div>
       <div class="overlay"></div>
     </section>
-<!--
+
     <section class="contact bg-primary" id="contact">
       <div class="container">
-        <h2>We
-          <i class="fa fa-heart"></i>
-          new friends!</h2>
-        <ul class="list-inline list-social">
-          <li class="list-inline-item social-twitter">
-            <a href="#">
-              <i class="fa fa-twitter"></i>
-            </a>
-          </li>
-          <li class="list-inline-item social-facebook">
-            <a href="#">
-              <i class="fa fa-facebook"></i>
-            </a>
-          </li>
-          <li class="list-inline-item social-google-plus">
-            <a href="#">
-              <i class="fa fa-google-plus"></i>
-            </a>
-          </li>
-        </ul>
+        <h2>Create New Event</h2>
+        <form action="../../../createEvent" method="post">
+          <div class="form-group">
+            <label for="eventTitle">Title of Event:</label>
+            <input type="text" name="eventTitle" class="form-control" id="eventTitle" placeholder="ex: conflict title">
+          </div>
+          <div class="form-group">
+            <label for="date">Event Date</label>
+            <input type="text" name="eventDate" class="form-control" id="date" placeholder="ex: 1/1/2001">
+          </div>
+          <div class="form-group">
+            <label for="starttime">Event Start Time</label>
+            <input type="text" name="eventStart" class="form-control" id="starttime" placeholder="ex: 12:30">
+          </div>
+          <div class="form-group">
+            <label for="endtime">Event End Time</label>
+            <input type="text" name="eventEnd" class="form-control" id="endtime" placeholder="ex: 14:30">
+          </div>
+          <div class="form-group" id="search-bar">
+            <label for="clubs">Members to Notify</label>
+            <ul class="memberList" id="clubsList" style="list-style-type:none"></ul>
+          </div>
+           <button type="submit" class="btn btn-primary">Create Event</button>
+        </form>
       </div>
-    </section> -->
+    </section> 
 
     <footer>
       <div class="container">
@@ -179,6 +188,31 @@
     <!-- Custom scripts for this template -->
     <script src="../../../js/new-age.min.js"></script>
     <script src="../../../js/admin.js"></script>
+
+     <!-- Custom script for calendar dropdown -->
+    <script src="../../../js/jquery.js"></script>
+    <script src="../../../js/jquery-ui.min.js"></script>
+    <script>
+      $(function() {
+        console.log("within datepicker script")
+        $("#date").datepicker();
+        $("#starttime").timepicker()
+        $('#endtime').timepicker();
+      });
+    </script>
+
+    <!-- Custom script for timepicker  -->
+    <script src="../../../js/jquery.ui.timepicker.js"/>
+    <script src="../../../js/jquery-1.9.0.min.js"/>
+    <script>
+      $(function() {
+        console.log('within timepicker script')
+        $('#starttime').timepicker();
+        $('#endtime').timepicker();
+      })
+    </script>
+
+
 
   </body>
 
