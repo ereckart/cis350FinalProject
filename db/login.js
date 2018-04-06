@@ -49,9 +49,12 @@ module.exports = {
     console.log('Adding club to the user doc!');
     mongo.User.find({userid: id}, function(err, users){
       if (err) console.log(err);
-
+      console.log('checkpoint 1');
       var newClubs = users[0].clubs;
-      if(! newClubs.includes(clubs)) {
+      console.log('my clubs:' + newClubs);
+      console.log('club to add:' + club);
+      if(! newClubs.includes(club)) {
+        console.log('checkpoint 2');
         newClubs.push(club);
         console.log("new Clubs:");
         console.log(newClubs);

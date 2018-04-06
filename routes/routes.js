@@ -272,7 +272,26 @@ var updateDescription = function(req, res) {
 var createEvent = function(req, res) {
     console.log('within create Event');
     console.log(req.body);
-    res.send('event created');
+
+    r = req.body;
+
+    // parse all the things from req.body that contain member and add them to an array
+    members = [];
+    for (var key in r) {
+        if (key.includes('member')) {
+            members.push(r[key]);
+        }
+    }
+
+    // //clubDb.createNewEvent(r.clubname, r.eventTitle, r.eventDate, r.eventStart, r.eventEnd, members, function(error) {
+    //     if (error) {
+    //         console.log(error);
+    //     } else {
+    //         res.redirect('/clubpage/' + req.body.clubname + '/admin/' + req.session.userid);
+    //     }
+    // });
+
+    res.send('new event made');
 }
 
 var routes = {
