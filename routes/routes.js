@@ -287,19 +287,19 @@ var createEvent = function(req, res) {
         }
     }
 
-<<<<<<< HEAD
+/*<<<<<<< HEAD
     console.log(members);
 
     var event = {clubname: club, date: date, starttime: start, endtime: end, eventname: title, invited: members};
     console.log(event);
-=======
+=======*/
     var event = {clubname: club, 
                  date: date, 
                  starttime: start, 
                  endtime: end, 
                  eventname: title, 
                  invited: members};
->>>>>>> 8e63f57e15942bb3af408482575a27809b036613
+/*>>>>>>> 8e63f57e15942bb3af408482575a27809b036613*/
     eventDb.getEvent(title, function(error, events) {
         console.log('checkpoint 0');
         if (error) {
