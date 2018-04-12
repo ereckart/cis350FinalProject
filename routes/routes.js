@@ -286,13 +286,14 @@ var createEvent = function(req, res) {
             members.push(r[key]);
         }
     }
-    
+
     var event = {clubname: club, 
                  date: date, 
                  starttime: start, 
                  endtime: end, 
                  eventname: title, 
                  invited: members};
+
     eventDb.getEvent(title, function(error, events) {
         console.log('checkpoint 0');
         if (error) {

@@ -16,9 +16,8 @@
     $('#checkCal').text('Check out whats going on this week in ' + clubName);
 
     // //Display welcome message
-    // var blurb = $.cookie('blurb');
-    // $('#blurb').text(blurb);
-
+    var blurb = $.cookie('blurb');
+    $('#blurb').text(blurb);
 
     // Populate list of members
     var members = $.cookie('members');
