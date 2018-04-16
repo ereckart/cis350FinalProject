@@ -3,8 +3,8 @@ var mongo = require('./mongo');
 module.exports = {
 
     // Get event by eventname.
-    getEvent: function (name, callback) {
-        return mongo.ClubEvent.find({eventname: name}).exec(function (error, events) {
+    getEvent: function (id, callback) {
+        return mongo.ClubEvent.find({eventid: id}).exec(function (error, events) {
             callback(error, events);
         });
     },
@@ -12,8 +12,6 @@ module.exports = {
     // Add a new event.
     addEvent: function (eventData, callback) {
         var event = new mongo.ClubEvent(eventData);
-        console.log('inside add Event');
-        console.log(eventData);
         event.save(function (error) {
             if(error) {
                 callback(error);
@@ -47,20 +45,5 @@ module.exports = {
   //       });
   //   },
 
-  // addMember: function(user, club, callback) {
-  //   mongo.Club.find({clubname: club}, function(err, clubs){
-  //     if (err) console.log(err);
-
-  //     var newMembers = clubs[0].members;
-  //     if(! newMembers.includes(user)) {
-  //       newMembers.push(user);
-  //       console.log("new Members:");
-  //       console.log(newMembers);
-
-  //       mongo.Club.update({clubname: club}, {$set: {members: newMembers}}, callback);
-  //     }
-
-  //   });
-  // }
 };
 

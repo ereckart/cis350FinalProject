@@ -18,6 +18,20 @@
     //Display calendar message
     $('#checkCal').text('Check out whats going on this week in ' + clubName);
 
+    //Populate list of events
+    var events = $.cookie('events');
+    console.log('events ' + events);
+    var $eventList = $('#eventList');
+    if(events) {
+        var eventArray = JSON.parse(events);
+
+        for (var i = 0; i < eventArray.length; i++) {
+            $eventList.append('<li> Title: ' + eventArray[i].eventname + " Date: " +
+                eventArray[i].date + " Start Time: " + eventArray[i].starttime +
+                " End Time: " + eventArray[i].endtime + '</li>');
+        }
+    }
+
 
     // //populate user list of clubs
     // var clubs = $.cookie('clubs');

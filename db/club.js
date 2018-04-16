@@ -4,7 +4,7 @@ var mongo = require('./mongo');
 
 module.exports = {
 
-    //gets a club 
+    //gets a club
     getClubOrAdd: function (id, callback) {
         return mongo.Club.find({clubname: id}).exec(function (error, clubs) {
             callback(error, clubs);
@@ -33,10 +33,10 @@ module.exports = {
         var clubBlurb = mongo.Club.findOne({clubname: id}).toArray(function(err) {
             if(err) {
                 callback(err, 'could not change description');
-            }    
+            }
             console.log('got club description');
-        }); 
-        var clubDescription = clubBlurb[3];  
+        });
+        var clubDescription = clubBlurb[3];
         return clubDescription;
     },
 
@@ -82,6 +82,24 @@ module.exports = {
             }
 
         });
-    } 
+    },
+
+    //adds an event to the club
+  addEvent: function(eventid, club, callback) {
+    mongo.Club.find({clubname: club}, function(err, clubs){
+      if (err) console.log(err);
+
+      var newEvents = clubs[0].events;
+      if(! newEvents.includes(eventid)) {
+        newEvents.push(eventid);
+        console.log("new Events:");
+        console.log(newEvents);
+
+        mongo.Club.update({clubname: club}, {$set: {events: newEvents}}, callback);
+      }
+
+    });
+  }
+
 };
 

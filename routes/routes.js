@@ -4,6 +4,7 @@ var redirectUrl = 'http://localhost:8080/tokensignin';
 var userDb = require('../db/login');
 var clubDb = require('../db/club');
 var eventDb = require('../db/event');
+var randomstring = require('randomstring');
 
 var GoogleAuth = require('google-auth-library');
 var auth = new GoogleAuth;
@@ -197,16 +198,13 @@ var clubPageAdmin = function(req, res) {
             console.log(error);
         }
         else {
-
-            console.log('CLUB:');
-            console.log(clubs[0]);
-
             var memberids = clubs[0].members
             var members = [];
 
+            var eventids = clubs[0].events
+            var events = [];
+
             for(var i = 0; i < memberids.length; i++) {
-                console.log(i);
-                console.log(memberids[i]);
                 var currid = memberids[i];
                 var curri = i;
                 (function(currmember, icurrent) {
@@ -216,14 +214,39 @@ var clubPageAdmin = function(req, res) {
                     }
                     members.push(users[0].name);
                     if(icurrent === (memberids.length - 1)) {
-                        res.cookie('members', JSON.stringify(members));
-                        res.cookie('clubName', clubname);
-                        res.cookie('blurb', clubs[0].welcomeblurb);
-                        res.render('club-admin');
+                        var visited = 0;
+                        for(var j = 0; j < eventids.length; j++) {
+                            var curreventid = eventids[j];
+                            var currj = j;
+                            (function(currentid, jcurr) {
+                                eventDb.getEvent(currentid, function(error, e) {
+                                    if (error) {
+                                        console.log(error);
+                                    }
+                                    events.push(e[0]);
+                                    if(visited == eventids.length - 1) {
+                                        res.cookie('members', JSON.stringify(members));
+                                        res.cookie('events', JSON.stringify(events));
+                                        res.cookie('clubName', clubname);
+                                        res.cookie('blurb', clubs[0].welcomeblurb);
+                                        res.render('club-admin');
+                                    } else {
+                                        visited ++;
+                                    }
+                                });
+                            })(curreventid, currj);
+                        }
+                        if(eventids.length == 0) {
+                            res.cookie('members', JSON.stringify(members));
+                            res.cookie('events', JSON.stringify(events));
+                            res.cookie('clubName', clubname);
+                            res.cookie('blurb', clubs[0].welcomeblurb);
+                            res.render('club-admin');
+                        }
                     }
-                });
-                })(currid, curri);
-            }
+            });
+            })(currid, curri);
+        }
         }
     });
 };
@@ -233,7 +256,6 @@ var clubPage = function(req, res) {
     clubname = req.params.clubname;
 
     clubDb.getClubOrAdd(clubname, function(error, clubs) {
-        console.log('IN HERE');
         if (error) {
             console.log(error);
         }
@@ -241,9 +263,37 @@ var clubPage = function(req, res) {
             console.log('CLUB:');
             console.log(clubs[0]);
 
-            res.cookie('clubName', clubname);
-            res.cookie('blurb', clubs[0].welcomeblurb);
-            res.render('club');
+            var eventids = clubs[0].events
+            var events = [];
+
+            var visited = 0;
+            for(var j = 0; j < eventids.length; j++) {
+                var curreventid = eventids[j];
+                var currj = j;
+                (function(currentid, jcurr) {
+                    eventDb.getEvent(currentid, function(error, e) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        events.push(e[0]);
+                        if(visited == eventids.length - 1) {
+                            res.cookie('events', JSON.stringify(events));
+                            res.cookie('clubName', clubname);
+                            res.cookie('blurb', clubs[0].welcomeblurb);
+                            res.render('club');
+                        } else {
+                            visited ++;
+                        }
+                    });
+                })(curreventid, currj);
+            }
+            if(eventids.length == 0) {
+                res.cookie('members', JSON.stringify(members));
+                res.cookie('events', JSON.stringify(events));
+                res.cookie('clubName', clubname);
+                res.cookie('blurb', clubs[0].welcomeblurb);
+                res.render('club');
+            }
         }
     });
 };
@@ -277,6 +327,7 @@ var createEvent = function(req, res) {
     var end = req.body.eventEnd;
     var club = req.body.clubname;
     r = req.body;
+    var id = randomstring.generate(12);
 
 
     // parse all the things from req.body that contain member and add them to an array
@@ -289,7 +340,8 @@ var createEvent = function(req, res) {
 
     console.log(members);
 
-    var event = {clubname: club,
+    var event = { eventid: id,
+                 clubname: club,
                  date: date,
                  starttime: start,
                  endtime: end,
@@ -297,23 +349,26 @@ var createEvent = function(req, res) {
                  invited: members};
     console.log(event);
 
-    eventDb.getEvent(title, function(error, events) {
-        console.log('checkpoint 0');
+    eventDb.getEvent(id, function(error, events) {
         if (error) {
             console.log(error);
         } else {
             if(events.length == 0) {
                 eventDb.addEvent(event, function(error) {
-                    console.log('checkpoint 1');
                     if(error) {
                         console.log(error);
                     }
-                    console.log('New Event Added!');
-                    var eventsArray = [];
-                    eventsArray.push(event);
-                    console.log(eventsArray);
-                    res.cookie('events', JSON.stringify(eventsArray));
-                    res.redirect('/clubpage/' + club + '/admin/' + req.session.userid);
+                    // console.log('New Event Added!');
+                    // var eventsArray = [];
+                    // eventsArray.push(event);
+                    // console.log(eventsArray);
+                    // res.cookie('events', JSON.stringify(eventsArray));
+                    clubDb.addEvent(id, club, function(error) {
+                        if(error) {
+                            console.log(error);
+                        }
+                        res.redirect('/clubpage/' + club + '/admin/' + req.session.userid);
+                    });
                 });
             }
         }

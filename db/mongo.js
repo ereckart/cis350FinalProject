@@ -26,15 +26,17 @@ var clubSchema = new mongoose.Schema({
     clubname: {type: String, unique: true, required: true},
     adminid: {type: String, required: true},
     members: [String],
+    events: [String],
     welcomeblurb: String
 });
 
 var eventSchema = new mongoose.Schema({
+    eventid: {type: String, unique: true, required: true},
     clubname: {type: String, required: true},
     date: {type: String, required: true},
     starttime: {type: String, required: true},
     endtime: {type: String, required: true},
-    eventname: {type: String, unique: true, required: true},
+    eventname: {type: String, required: true},
     invited: [String]
 });
 
