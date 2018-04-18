@@ -42,6 +42,7 @@ app.post('/editDescription', routes.update_description);
 app.get('/join/:clubname', routes.join_club_landing_page);
 app.get('/join', routes.join_club);
 
+
 /* Start App */
 app.set('port', process.env.PORT || 8080);
 

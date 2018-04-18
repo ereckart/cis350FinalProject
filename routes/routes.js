@@ -4,6 +4,7 @@ var redirectUrl = 'http://localhost:8080/tokensignin';
 var userDb = require('../db/login');
 var clubDb = require('../db/club');
 var eventDb = require('../db/event');
+var conflictDb = require('../db/conflict');
 var randomstring = require('randomstring');
 
 var GoogleAuth = require('google-auth-library');
@@ -91,8 +92,49 @@ var verifyLogin = function(req, res) {
 var submitConflict = function(req, res) {
     console.log('within submit conflict');
     console.log(req.body);
-    console.log("conflict saved");
-    res.redirect('/conflict');
+    
+    //get event infor from req.body
+    var title = req.body.conflictTitle;
+    var date = req.body.conflictDate;
+    var start = req.body.conflictStart;
+    var end = req.body.conflictEnd;
+    var reason = req.body.conflictReason;
+    var ownerid = req.body.userid;
+    r = req.body;
+    var id = randomstring.generate(12);
+
+    // parse all the things from req.body that contain club and add them to an array
+    clubs = [];
+    for (var key in r) {
+        if (key.includes('club')) {
+            clubs.push(r[key]);
+        }
+    }
+    console.log('array of clubs: ' + clubs);
+    
+    var conflict = { conflictid: id,
+                    ownerid: ownerid,
+                    date: date,
+                    starttime: start,
+                    endtime: end,
+                    reason: reason};
+
+    console.log(conflict);
+
+    conflictDb.addConflict(conflict, function(error) {
+        if(error) {
+            console.log(error);
+        }
+        for (var clubToAdd in clubs) {
+            console.log('trying to add conflict to: ' + clubs[clubToAdd]);
+            clubDb.addConflictToClub(id, clubs[clubToAdd], function(error) {
+                if(error) {
+                    console.log('trying to add conflict to: ' + clubs[clubToAdd]);
+                }
+            });
+        }
+        res.redirect('/conflict');
+    });
 };
 
 // Function to create a new club. Handles database interactions and redirects to welcome
@@ -388,6 +430,7 @@ var routes = {
     update_description: updateDescription,
     club_page: clubPage,
     create_event: createEvent
+    //create_conflict: createConflict
 };
 
 module.exports = routes;

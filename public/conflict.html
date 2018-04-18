@@ -117,10 +117,16 @@
             <input type="text" name="conflictEnd" class="form-control" id="endtime" 
             placeholder="ex: 14:30">
           </div>
+           <div class="form-group">
+            <label for="conflictReason">Reason:</label>
+            <input type="text" name="conflictReason" class="form-control" id="reason" 
+            placeholder="ex: Interview">
+          </div>
           <div class="form-group" id="search-bar">
             <label for="clubs">Clubs to Notify</label>
             <ul class="clubsList" id="clubsList" style="list-style-type:none"></ul>
           </div>
+           <input hidden id="userid" type="text" name="userid">
            <button type="submit" class="btn btn-primary">Save Changes</button>
         </form>
         </div>

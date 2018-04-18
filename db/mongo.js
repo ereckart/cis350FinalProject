@@ -27,6 +27,7 @@ var clubSchema = new mongoose.Schema({
     adminid: {type: String, required: true},
     members: [String],
     events: [String],
+    conflicts: [String],
     welcomeblurb: String
 });
 
@@ -43,10 +44,10 @@ var eventSchema = new mongoose.Schema({
 var conflictSchema = new mongoose.Schema({
     conflictid: {type: String, unique: true, required: true},
     ownerid: {type: String, required: true},
-    date: {type: Number, required: true},
-    starttime: {type: Number, required: true},
-    endtime: {type: Number, required: true},
-    reason: {type: Number, required: true}
+    date: {type: String, required: true},
+    starttime: {type: String, required: true},
+    endtime: {type: String, required: true},
+    reason: {type: String, required: true}
 });
 
 var User = mongoose.model('User', userSchema);

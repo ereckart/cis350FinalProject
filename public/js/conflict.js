@@ -1,6 +1,11 @@
 (function($) {
     // Populate list of clubs
-    console.log('within conflict.js')
+    console.log('within conflict.js');
+
+    //getting user id
+    var userid = $.cookie('userid');
+    console.log('userid: ' + userid);
+    $('#userid').val(userid);
     
     var adminclubs = $.cookie('adminclubs');
     var clubs = $.cookie('clubs');

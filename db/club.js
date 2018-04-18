@@ -29,16 +29,16 @@ module.exports = {
     },
 
     //get club description
-    getClubDescription: function (id, callback) {
+    /*getClubDescription: function (id, callback) {
         var clubBlurb = mongo.Club.findOne({clubname: id}).toArray(function(err) {
             if(err) {
                 callback(err, 'could not change description');
             }
             console.log('got club description');
         });
-        var clubDescription = clubBlurb[3];
+        var clubDescription = clubBlurb[5];
         return clubDescription;
-    },
+    },*/
 
     //change club description
     changeClubDescription: function(id, newDescription, callback) {
@@ -85,21 +85,37 @@ module.exports = {
     },
 
     //adds an event to the club
-  addEvent: function(eventid, club, callback) {
-    mongo.Club.find({clubname: club}, function(err, clubs){
-      if (err) console.log(err);
+    addEvent: function(eventid, club, callback) {
+        mongo.Club.find({clubname: club}, function(err, clubs){
+            if (err) console.log(err);
 
-      var newEvents = clubs[0].events;
-      if(! newEvents.includes(eventid)) {
-        newEvents.push(eventid);
-        console.log("new Events:");
-        console.log(newEvents);
+            var newEvents = clubs[0].events;
+            if(! newEvents.includes(eventid)) {
+                newEvents.push(eventid);
+                console.log("new Events:");
+                console.log(newEvents);
 
-        mongo.Club.update({clubname: club}, {$set: {events: newEvents}}, callback);
-      }
+                mongo.Club.update({clubname: club}, {$set: {events: newEvents}}, callback);
+            }
 
-    });
-  }
+        });
+    },
+
+    //add conflict to club
+    addConflictToClub: function(conflictid, club, callback) {
+        mongo.Club.find({clubname: club}, function(err, clubs){
+            if (err) console.log(err);    
+
+            var newConflicts = clubs[0].conflicts;
+            if(! newConflicts.includes(conflictid)) {
+                newConflicts.push(conflictid);
+                console.log("new conflicts:");
+                console.log(newConflicts);
+
+                mongo.Club.update({clubname: club}, {$set: {conflicts: newConflicts}}, callback);
+            }
+        }); 
+    }
 
 };
 
