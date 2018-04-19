@@ -92,7 +92,7 @@ var verifyLogin = function(req, res) {
 var submitConflict = function(req, res) {
     console.log('within submit conflict');
     console.log(req.body);
-    
+
     //get event infor from req.body
     var title = req.body.conflictTitle;
     var date = req.body.conflictDate;
@@ -111,7 +111,7 @@ var submitConflict = function(req, res) {
         }
     }
     console.log('array of clubs: ' + clubs);
-    
+
     var conflict = { conflictid: id,
                     ownerid: ownerid,
                     date: date,
@@ -317,7 +317,9 @@ var clubPage = function(req, res) {
                         if (error) {
                             console.log(error);
                         }
-                        events.push(e[0]);
+                        if (e[0].invited.includes(req.cookies.name)) {
+                            events.push(e[0]);
+                        }
                         if(visited == eventids.length - 1) {
                             res.cookie('events', JSON.stringify(events));
                             res.cookie('clubName', clubname);
