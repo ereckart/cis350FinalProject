@@ -55,6 +55,7 @@ import '../../../js/fullcalendar.js';
     var events = $.cookie('events');
     console.log('events ' + events);
     var $eventList = $('#eventList');
+    var calEvents = []
     if(events) {
         var eventArray = JSON.parse(events);
 
@@ -62,6 +63,25 @@ import '../../../js/fullcalendar.js';
             $eventList.append('<li> Title: ' + eventArray[i].eventname + " Date: " +
                 eventArray[i].date + " Start Time: " + eventArray[i].starttime +
                 " End Time: " + eventArray[i].endtime + '</li>');
+
+            var date = eventArray[i].date
+
+            var startTime = date.substring(6, 10) + '-' + date.substring(0, 2) + '-' + date.substring(3, 5) +
+                'T' +  eventArray[i].starttime + ':00';
+
+            var endTime = date.substring(6, 10) + '-' + date.substring(0, 2) + '-' + date.substring(3, 5) +
+                'T' +  eventArray[i].endtime + ':00';
+
+            var e = {
+                title : eventArray[i].eventname,
+                start : startTime,
+                end : endTime
+            }
+
+            console.log(startTime);
+            console.log(endTime);
+
+            calEvents.push(e);
         }
     }
 
@@ -69,7 +89,9 @@ import '../../../js/fullcalendar.js';
     $.getScript("../../../lib/moment.min.js");
     $.getScript("../../../js/gcal.js");
 
-    console.log($.cookie('email'));
+    //console.log($.cookie('email'));
+
+    console.log(calEvents);
 
     $('#calendar').fullCalendar({
       header: {
@@ -77,13 +99,19 @@ import '../../../js/fullcalendar.js';
         center: 'title',
         right: 'month,basicWeek,basicDay'
       },
+      eventSources: [
+        {
+            events: calEvents
+        }
+      ]
+
       // defaultDate: '2018-03-12',
       // navLinks: true, // can click day/week names to navigate views
       // editable: true,
       // eventLimit: true, // allow "more" link when too many events
-      googleCalendarApiKey: 'AIzaSyBeZyYpoe0d9CDaHALOu-aLsACKk2xVApk',
-       eventSources: [
-            { googleCalendarId: 'derulker@gmail.com'}]
+      // googleCalendarApiKey: 'AIzaSyBeZyYpoe0d9CDaHALOu-aLsACKk2xVApk',
+      //  eventSources: [
+      //       { googleCalendarId: 'en.usa#holiday@group.v.calendar.google.com'}]
     });
 
 var removeUndef = function() {
