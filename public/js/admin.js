@@ -114,10 +114,13 @@ import '../../../js/fullcalendar.js';
       //       { googleCalendarId: 'en.usa#holiday@group.v.calendar.google.com'}]
     });
 
-var removeUndef = function() {
     var original = $('.fc-center').find("h2").text();
     $('.fc-center').find("h2").text(original.replace(new RegExp("undefined", 'g'), ""));
-};
+
+    var removeUndef = function() {
+        var original = $('.fc-center').find("h2").text();
+        $('.fc-center').find("h2").text(original.replace(new RegExp("undefined", 'g'), ""));
+    };
 
 $(".fc-toolbar").on('click', '.fc-button', removeUndef);
 

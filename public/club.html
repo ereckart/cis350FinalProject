@@ -27,6 +27,15 @@
     <!-- Custom styles for this template -->
     <link href="../../../css/new-age.min.css" rel="stylesheet">
 
+    <!-- CSS for calendar -->
+    <link href='../../../css/fullcalendar.css' rel='stylesheet' />
+
+    <!-- Custom scripts for the calendar -->
+    <script src="../../../vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src='../../../lib/moment.min.js'></script>
+    <script src='../../../js/fullcalendar.js'></script>
+    <script type='text/javascript' src='../../../js/gcal.js'></script>
+
   </head>
 
   <body id="page-top">
@@ -105,6 +114,7 @@
           <p id=checkCal class="text-muted">Check out whats going on this week in *Club Name*</p>
           <hr>
           <ul id="eventList" style="list-style-type:none"> </ul>
+          <div id='calendar'></div>
         </div>
       </div>
     </section>
@@ -153,7 +163,6 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-   <script src="../../../vendor/jquery/jquery-3.2.1.min.js"></script>
     <script src="../../../vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../../vendor/jquery/jquery.cookie.js"></script>
 
