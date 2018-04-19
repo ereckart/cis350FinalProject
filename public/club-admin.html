@@ -17,20 +17,56 @@
     <link rel="stylesheet" href="../../../vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../../../vendor/simple-line-icons/css/simple-line-icons.css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" 
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900"
       rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
     <!-- Plugin CSS -->
-    <link rel="stylesheet" href="../../../device-mockups/device-mockups.min.css">
-
+<!--     <link rel="stylesheet" href="../../../device-mockups/device-mockups.min.css">
+ -->
     <!-- Custom styles for this template -->
     <link href="../../../css/new-age.min.css" rel="stylesheet">
+
+    <!-- CSS for calendar -->
+    <link href='../../../css/fullcalendar.css' rel='stylesheet' />
+
+    <!-- Custom scripts for the calendar -->
+    <script src="../../../vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src='../../../lib/moment.min.js'></script>
+    <script src='../../../js/fullcalendar.js'></script>
+<!--
+    <script>
+      import $ from 'jquery';
+      import 'fullcalendar';
+    </script>
+
+    <script>
+      $(function() {
+          // page is now ready, initialize the calendar...
+          $('#calendar').fullCalendar({
+          // put your options and callbacks here
+          })
+      });
+    </script> -->
 
     <!-- CSS for calendar & time dropdowns -->
     <link rel="stylesheet" href="../../../css/jquery-ui.min.css">
     <link rel="stylesheet" href="../../../css/jquery.ui.timepicker.css">
     <link rel="stylesheet" href="../../../css/jquery-ui-1.10.0.custom.min.css">
+<!--
+    <style>
+      body {
+        margin: 40px 10px;
+        padding: 0;
+        font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+        font-size: 14px;
+      }
+
+      #calendar {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+    </style> -->
 
   </head>
 
@@ -40,8 +76,8 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">Club Central</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" 
-        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" 
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
         aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -77,12 +113,12 @@
               <div class="device-mockup iphone6_plus portrait white">
                 <div class="device">
                   <div class="screen">
-                    <!-- Demo image for screen mockup, you can put an image here, some HTML, an 
+                    <!-- Demo image for screen mockup, you can put an image here, some HTML, an
                       animation, video, or anything else! -->
                     <img src="img/demo-screen-1.jpg" class="img-fluid" alt="">
                   </div>
                   <div class="button">
-                    <!-- You can hook the "home button" to some JavaScript events or just remove 
+                    <!-- You can hook the "home button" to some JavaScript events or just remove
                       it -->
                   </div>
                 </div>
@@ -112,6 +148,7 @@
           <h2>Calendar</h2>
           <p class="text-muted" id="checkCal">Check out whats going on this week in *Club Name*</p>
           <ul id="eventList" style="list-style-type:none"> </ul>
+          <div id='calendar'></div>
           <hr>
         </div>
       </div>
@@ -143,27 +180,27 @@
         <form action="../../../createEvent" method="post">
           <div class="form-group">
             <label for="eventTitle">Title of Event:</label>
-            <input type="text" name="eventTitle" class="form-control" id="eventTitle" 
+            <input type="text" name="eventTitle" class="form-control" id="eventTitle"
             placeholder="ex: conflict title">
           </div>
           <div class="form-group">
             <label for="date">Event Date</label>
-            <input type="text" name="eventDate" class="form-control" id="date" 
+            <input type="text" name="eventDate" class="form-control" id="date"
             placeholder="ex: 1/1/2001">
           </div>
           <div class="form-group">
             <label for="starttime">Event Start Time</label>
-            <input type="text" name="eventStart" class="form-control" id="starttime" 
+            <input type="text" name="eventStart" class="form-control" id="starttime"
             placeholder="ex: 12:30">
           </div>
           <div class="form-group">
             <label for="endtime">Event End Time</label>
-            <input type="text" name="eventEnd" class="form-control" id="endtime" 
+            <input type="text" name="eventEnd" class="form-control" id="endtime"
             placeholder="ex: 14:30">
           </div>
           <div class="form-group" id="search-bar">
             <label for="clubs">Members to Notify</label>
-            <ul class="memberListForClubs" id="memberListForClubs" 
+            <ul class="memberListForClubs" id="memberListForClubs"
             style="list-style-type:none"></ul>
           </div>
           <input hidden id="clubname" type="text" name="clubname">
@@ -190,7 +227,6 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-   <script src="../../../vendor/jquery/jquery-3.2.1.min.js"></script>
     <script src="../../../vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../../vendor/jquery/jquery.cookie.js"></script>
 
@@ -199,10 +235,10 @@
 
     <!-- Custom scripts for this template -->
     <script src="../../../js/new-age.min.js"></script>
-    <script src="../../../js/admin.js"></script>
+    <script type ="module" src="../../../js/admin.js"></script>
 
      <!-- Custom script for calendar dropdown -->
-    <script src="../../../js/jquery.js"></script>
+    <!-- <script src="../../../js/jquery.js"></script> -->
     <script src="../../../js/jquery-ui.min.js"></script>
     <script>
       $(function() {
@@ -215,8 +251,8 @@
 
     <!-- Custom script for timepicker  -->
     <script src="../../../js/jquery.ui.timepicker.js"/>
-    <script src="../../../js/jquery-1.9.0.min.js"/>
-    <script>
+<!--     <script src="../../../js/jquery-1.9.0.min.js"/>
+ -->    <script>
       $(function() {
         console.log('within timepicker script')
         $('#starttime').timepicker();
