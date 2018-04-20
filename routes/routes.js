@@ -300,7 +300,7 @@ var clubPageAdmin = function(req, res) {
                                             res.cookie('blurb', clubs[0].welcomeblurb);
                                             res.render('club-admin');
                                         }
-                                        
+
                                     } else {
                                         eventsvisited ++;
                                     }
@@ -340,6 +340,7 @@ var clubPage = function(req, res) {
 
             var visited = 0;
             for(var j = 0; j < eventids.length; j++) {
+                console.log('checkpoint 1');
                 var curreventid = eventids[j];
                 var currj = j;
                 (function(currentid, jcurr) {
@@ -362,7 +363,6 @@ var clubPage = function(req, res) {
                 })(curreventid, currj);
             }
             if(eventids.length == 0) {
-                res.cookie('members', JSON.stringify(members));
                 res.cookie('events', JSON.stringify(events));
                 res.cookie('clubName', clubname);
                 res.cookie('blurb', clubs[0].welcomeblurb);
