@@ -98,7 +98,7 @@ var submitConflict = function(req, res) {
     var date = req.body.conflictDate;
     var start = req.body.conflictStart;
     var end = req.body.conflictEnd;
-    var ownerid = req.body.userid;
+    var ownerid = req.cookies.name;
     r = req.body;
     var id = randomstring.generate(12);
 
@@ -340,7 +340,6 @@ var clubPage = function(req, res) {
 
             var visited = 0;
             for(var j = 0; j < eventids.length; j++) {
-                console.log('checkpoint 1');
                 var curreventid = eventids[j];
                 var currj = j;
                 (function(currentid, jcurr) {

@@ -71,27 +71,24 @@
             events: calEvents
         }
       ]
-
-      // defaultDate: '2018-03-12',
-      // navLinks: true, // can click day/week names to navigate views
-      // editable: true,
-      // eventLimit: true, // allow "more" link when too many events
-      // googleCalendarApiKey: 'AIzaSyBeZyYpoe0d9CDaHALOu-aLsACKk2xVApk',
-      //  eventSources: [
-      //       { googleCalendarId: 'en.usa#holiday@group.v.calendar.google.com'}]
     });
 
+    var original = $('.fc-center').find("h2").text();
+    $('.fc-center').find("h2").text(original.replace(new RegExp("undefined", 'g'), ""));
 
-    // //populate user list of clubs
-    // var clubs = $.cookie('clubs');
-    // console.log('clubs: ' + clubs);
-    // //clubs = clubs.slice(2);
-    // var $list = $('#clubList');
-    // var clubArray = JSON.parse(clubs);
+    var removeUndef = function() {
+        var original = $('.fc-center').find("h2").text();
+        $('.fc-center').find("h2").text(original.replace(new RegExp("undefined", 'g'), ""));
 
-    // for (var i = 0; i < clubArray.length; i++) {
-    //     $list.append('<li>' + clubArray[i] + '</li>');
-    // }
+        var originalTime = $('.fc-time').text();
+        $('.fc-time').text(originalTime.replace(new RegExp("undefined", 'g'), ""));
+    };
+
+    $(".fc-toolbar").on('click', '.fc-button', removeUndef);
+
+
+
+
 
 
 

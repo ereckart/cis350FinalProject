@@ -5,9 +5,7 @@ import '../../../js/fullcalendar.js';
 
     //Display club name on admin screen
     var clubName = $.cookie('clubName');
-    console.log(clubName);
     $('#clubName').text(clubName);
-    console.log(clubName);
 
     //Display club join URL
     $('#URL').text('localhost:8080/join/' + clubName);
@@ -24,7 +22,6 @@ import '../../../js/fullcalendar.js';
 
     // Populate list of members
     var members = $.cookie('members');
-    console.log('members ' + members);
     var $memberlist = $('#memberList');
     var memberArray = JSON.parse(members);
 
@@ -53,12 +50,10 @@ import '../../../js/fullcalendar.js';
 
     //Populate list of events
     var events = $.cookie('events');
-    console.log("events: " + events);
     var $eventList = $('#eventList');
     var calEvents = []
     if(events) {
         var eventArray = JSON.parse(events);
-        console.log('inside even though no events')
 
         for (var i = 0; i < eventArray.length; i++) {
             $eventList.append('<li> Title: ' + eventArray[i].eventname + " Date: " +
@@ -83,12 +78,9 @@ import '../../../js/fullcalendar.js';
         }
     }
 
-    console.log("Conflicts: ");
     var conflicts = $.cookie('conflicts');
-    console.log('conflicts: ' + conflicts);
     var conflictCalEvents = [];
     if (conflicts) {
-        console.log('inside even though no conflicts');
         var conflictArray = JSON.parse(conflicts);
 
         for (var i = 0; i < conflictArray.length; i++) {
@@ -97,9 +89,10 @@ import '../../../js/fullcalendar.js';
             'T' + conflictArray[i].starttime + ':00';
             var endTime = date.substring(6, 10) + '-' + date.substring(0,2) + '-' + date.substring(3, 5) +
             'T' + conflictArray[i].endtime + ':00';
+            var ctitle = conflictArray[i].ownerid + ' - ' + conflictArray[i].reason;
 
             var c = {
-                title : conflictArray[i].reason,
+                title : ctitle,
                 start : startTime,
                 end : endTime
             }
@@ -113,10 +106,6 @@ import '../../../js/fullcalendar.js';
     //Show the calendar
     $.getScript("../../../lib/moment.min.js");
     $.getScript("../../../js/gcal.js");
-
-    //console.log($.cookie('email'));
-
-    console.log(calEvents);
 
     $('#calendar').fullCalendar({
       header: {
@@ -133,14 +122,6 @@ import '../../../js/fullcalendar.js';
             color: 'red'
         },
       ]
-
-      // defaultDate: '2018-03-12',
-      // navLinks: true, // can click day/week names to navigate views
-      // editable: true,
-      // eventLimit: true, // allow "more" link when too many events
-      // googleCalendarApiKey: 'AIzaSyBeZyYpoe0d9CDaHALOu-aLsACKk2xVApk',
-      //  eventSources: [
-      //       { googleCalendarId: 'en.usa#holiday@group.v.calendar.google.com'}]
     });
 
     var original = $('.fc-center').find("h2").text();
@@ -149,6 +130,9 @@ import '../../../js/fullcalendar.js';
     var removeUndef = function() {
         var original = $('.fc-center').find("h2").text();
         $('.fc-center').find("h2").text(original.replace(new RegExp("undefined", 'g'), ""));
+
+        var originalTime = $('.fc-time').text();
+        $('.fc-time').text(originalTime.replace(new RegExp("undefined", 'g'), ""));
     };
 
 $(".fc-toolbar").on('click', '.fc-button', removeUndef);
