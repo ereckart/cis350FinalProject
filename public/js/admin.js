@@ -86,15 +86,16 @@ import '../../../js/fullcalendar.js';
     console.log("Conflicts: ");
     var conflicts = $.cookie('conflicts');
     console.log('conflicts: ' + conflicts);
+    var conflictCalEvents = [];
     if (conflicts) {
         console.log('inside even though no conflicts');
         var conflictArray = JSON.parse(conflicts);
 
         for (var i = 0; i < conflictArray.length; i++) {
             var date = conflictArray[i].date;
-            var startTime = date.substring(6, 10) + '-' + date.substring(0,2) + '-' + date.substring(3, 5) + 
+            var startTime = date.substring(6, 10) + '-' + date.substring(0,2) + '-' + date.substring(3, 5) +
             'T' + conflictArray[i].starttime + ':00';
-            var endTime = date.substring(6, 10) + '-' + date.substring(0,2) + '-' + date.substring(3, 5) + 
+            var endTime = date.substring(6, 10) + '-' + date.substring(0,2) + '-' + date.substring(3, 5) +
             'T' + conflictArray[i].endtime + ':00';
 
             var c = {
@@ -103,10 +104,10 @@ import '../../../js/fullcalendar.js';
                 end : endTime
             }
 
-            calEvents.push(c);
+            conflictCalEvents.push(c);
         }
 
-        
+
     }
 
     //Show the calendar
@@ -126,7 +127,11 @@ import '../../../js/fullcalendar.js';
       eventSources: [
         {
             events: calEvents
-        }
+        },
+        {
+            events: conflictCalEvents,
+            color: 'red'
+        },
       ]
 
       // defaultDate: '2018-03-12',
