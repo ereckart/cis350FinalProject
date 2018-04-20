@@ -35,6 +35,17 @@ var postLogin = function(req, res){
                     }
                     else {
                         console.log('New User Added!');
+                        clubs = users[0].clubs;
+                        adminclubs = users[0].adminClubs;
+                        res.cookie('adminclubs', JSON.stringify(adminclubs));
+                        res.cookie('clubs', JSON.stringify(clubs));
+                        req.session.isLoggedIn = true;
+                        req.session.userid = userid;
+                        res.cookie('userid', userid);
+                        res.cookie('email', email);
+                        res.cookie('name', name);
+                        res.send('message');
+                        console.log("USER:" + users[0]);
                     }
                 });
             }
@@ -78,14 +89,16 @@ var verifyToken = function(req, res) {
 
 // Function to verify that the user is logged in. Useful for join redirect flow.
 var verifyLogin = function(req, res) {
-	if (req.session.clubToJoin) {
-        req.session.isLoggedIn = true;
+	if (req.session.clubToJoin && req.session.isLoggedIn ) {
 		res.cookie('clubToJoin', req.session.clubToJoin);
 		res.redirect('/join/' + req.session.clubToJoin);
 	}
 	else if (req.session.isLoggedIn) {
 		res.redirect('/welcome');
-	};
+	}
+    else {
+        res.redirect('/');
+    }
 };
 
 // Submit a conflict.
@@ -220,7 +233,9 @@ var joinClub = function(req, res) {
 
     //Add club to clubs cookie
     var clubsCookie = JSON.parse(req.cookies.clubs);
-    clubsCookie.push(clubToJoin);
+    if (! clubsCookie.includes(clubToJoin)) {
+        clubsCookie.push(clubToJoin);
+    }
     res.cookie('clubs', JSON.stringify(clubsCookie));
 
 
