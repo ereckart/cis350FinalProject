@@ -30,10 +30,6 @@ var postLogin = function(req, res){
                     }
                     else {
                         console.log('New User Added!');
-                        clubs = users[0].clubs;
-                        adminclubs = users[0].adminClubs;
-                        res.cookie('adminclubs', JSON.stringify(adminclubs));
-                        res.cookie('clubs', JSON.stringify(clubs));
                         req.session.isLoggedIn = true;
                         req.session.userid = userid;
                         res.cookie('userid', userid);

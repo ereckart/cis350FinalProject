@@ -25,9 +25,10 @@ module.exports = {
     user.save(function (error) {
       if(error) {
         callback(error);
+      } else {
+            console.log('got to save function');
+            callback();
       }
-      console.log('got to save function');
-      //callback(error);
     });
   },
 
