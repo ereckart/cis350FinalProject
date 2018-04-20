@@ -53,10 +53,12 @@ import '../../../js/fullcalendar.js';
 
     //Populate list of events
     var events = $.cookie('events');
+    console.log("events: " + events);
     var $eventList = $('#eventList');
     var calEvents = []
     if(events) {
         var eventArray = JSON.parse(events);
+        console.log('inside even though no events')
 
         for (var i = 0; i < eventArray.length; i++) {
             $eventList.append('<li> Title: ' + eventArray[i].eventname + " Date: " +
@@ -85,6 +87,7 @@ import '../../../js/fullcalendar.js';
     var conflicts = $.cookie('conflicts');
     console.log('conflicts: ' + conflicts);
     if (conflicts) {
+        console.log('inside even though no conflicts');
         var conflictArray = JSON.parse(conflicts);
 
         for (var i = 0; i < conflictArray.length; i++) {
@@ -99,9 +102,11 @@ import '../../../js/fullcalendar.js';
                 start : startTime,
                 end : endTime
             }
+
+            calEvents.push(c);
         }
 
-        calEvents.push(c);
+        
     }
 
     //Show the calendar
