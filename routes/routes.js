@@ -185,10 +185,7 @@ var newClub = function(req, res) {
                 });
             }
             else {
-                //res.cookie('clubs', users[0].clubs);
-                var u = users[0];
-                res.send('Sorry, this club already exists!')
-                //clubs = ['hi'];
+                res.send('Sorry, this club already exists! Please press the back button and try again with a different club name.');
             }
         }
     });

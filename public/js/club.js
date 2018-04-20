@@ -28,9 +28,9 @@
         var eventArray = JSON.parse(events);
 
         for (var i = 0; i < eventArray.length; i++) {
-            $eventList.append('<li> Title: ' + eventArray[i].eventname + " Date: " +
-                eventArray[i].date + " Start Time: " + eventArray[i].starttime +
-                " End Time: " + eventArray[i].endtime + '</li>');
+            $eventList.append('<li> Title: ' + eventArray[i].eventname + "   Date: " +
+                eventArray[i].date + "   Start Time: " + eventArray[i].starttime +
+                "   End Time: " + eventArray[i].endtime + '</li>');
             var date = eventArray[i].date
 
             var startTime = date.substring(6, 10) + '-' + date.substring(0, 2) + '-' + date.substring(3, 5) +

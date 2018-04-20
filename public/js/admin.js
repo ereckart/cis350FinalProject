@@ -56,9 +56,9 @@ import '../../../js/fullcalendar.js';
         var eventArray = JSON.parse(events);
 
         for (var i = 0; i < eventArray.length; i++) {
-            $eventList.append('<li> Title: ' + eventArray[i].eventname + " Date: " +
-                eventArray[i].date + " Start Time: " + eventArray[i].starttime +
-                " End Time: " + eventArray[i].endtime + '</li>');
+            $eventList.append('<li> Title: ' + eventArray[i].eventname + "   Date: " +
+                eventArray[i].date + "   Start Time: " + eventArray[i].starttime +
+                "   End Time: " + eventArray[i].endtime + '</li>');
 
             var date = eventArray[i].date;
 
