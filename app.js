@@ -8,6 +8,8 @@ var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var cookieParser = require('cookie-parser');
+var passport = require('passport');
+var auth = require('./auth');
 
 /* Dependency Setup */
 app.engine('html', require('ejs').__express);
@@ -17,19 +19,28 @@ app.use(express.static(path.join(__dirname,'public')));
 
 var generateCookieSecret = () => 'iamasecret' + uuid.v4();
 app.use(cookieSession({secret: generateCookieSecret()}));
-
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
-app.use(cookieParser());
+
+auth(passport);
+app.use(passport.initialize());
 
 /* Routing */
 app.get('/', (req, res) => res.render('login'));
 
-app.post('/tokensignin', routes.verify_token)
-app.post('/loggedIn', routes.post_login);
+app.get('/loggedIn', 
+	passport.authenticate('google', {failureRedirect: '/'}),
+	routes.post_login
+);
 app.post('/verifyLogin', routes.verify_login);
+
+app.get('/auth/google', passport.authenticate('google', {
+    scope: ['https://www.googleapis.com/auth/userinfo.profile']
+}));
+
 app.get('/create', (req, res) => res.render('create'));
 app.get('/club/:clubname', routes.club_page);
 app.get('/clubpage/:clubname/admin/:adminid', routes.club_page_admin);

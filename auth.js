@@ -9,10 +9,10 @@ module.exports = (passport) => {
 		done(null, user);
 	});
 
-	passport.user(new GoogleStrategy({
+	passport.use(new GoogleStrategy({
 		clientID: '916258004164-3304q68p6dgrhsqdb1b2d00ncg6gs4mc.apps.googleusercontent.com',
 		clientSecret: 'M2bVdirEI6D3giseHeZGvRRa',
-		callbackURL: 'http://localhost:8080/welcome'
+		callbackURL: 'http://localhost:8080/loggedIn'
 	},
 	(token, refreshToken, profile, done) => {
 		return done(null, {

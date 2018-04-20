@@ -4,8 +4,6 @@
 	<title>Club Central Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="662570449043-5jps7mcj5run46vchad5967547stv5ul.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 <!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
@@ -41,30 +39,11 @@
 				<span class="txt1 p-b-53">
 						Hi! Welcome to Club Central! You must have a Google account to sign in. If you do not have a Google account, please create one and return to this page to sign in.
 				</span>
-				<div class="g-signin2" data-width = "calc((100% - 20px) / 2)" data-height="70" 
-				data-onsuccess="onSignIn" data-theme="dark"></div>
-				<script>
-					function onSignIn(googleUser) {
-						// Useful data for your client-side scripts:
-						var profile = googleUser.getBasicProfile();
-						console.log("ID: " + profile.getId());
-						// Don't send this directly to your server!
-
-						var email = profile.getEmail();
-						var name = profile.getName();
-						var userid = profile.getId();
-						var id_token = googleUser.getAuthResponse().id_token;
-
-						var xhr = new XMLHttpRequest();
-						xhr.open('POST', 'http://localhost:8080/loggedIn')
-						xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-						xhr.onload = function() {
-							console.log('Signed in as: ' + xhr.responseText);
-						};
-						xhr.send('email=' + email + '&name='+name + '&userid=' + userid);
-					};
-				</script>
-			</div>
+				<div>
+					<form action='/verifyLogin' method='post' class=-'inline'>
+						<input type='image' src='images/sign-in.png' alt="Sign In"/>
+					</form>
+				</div>
 		</div>
 	</div>
 	<form action='/verifyLogin' method='post' class='inline'>

@@ -1,29 +1,24 @@
-var clientID = '916258004164-3304q68p6dgrhsqdb1b2d00ncg6gs4mc.apps.googleusercontent.com'
-var clientSecret = 'M2bVdirEI6D3giseHeZGvRRa';
-var redirectUrl = 'http://localhost:8080/tokensignin';
 var userDb = require('../db/login');
 var clubDb = require('../db/club');
 var eventDb = require('../db/event');
 var conflictDb = require('../db/conflict');
 var randomstring = require('randomstring');
 
-var GoogleAuth = require('google-auth-library');
-var auth = new GoogleAuth;
-var client = new auth.OAuth2(clientID, clientSecret, redirectUrl);
-
 /* When the user signs in, this function should be called. It either creates a new account or
  * logs in. This function handles all database interactions.
  */
 var postLogin = function(req, res){
-    console.log(req.body);
 
-	var userid = req.body.userid;
-	var email = req.body.email;
-	var name = req.body.name;
+    req.session.token = req.user.token;
+    console.log('*******************');
+    console.log('user: ' + JSON.stringify(req.user));
+
+	var userid = req.user.profile.id;
+	var name = req.user.profile.displayName;
     var clubs = [];
     var adminclubs = [];
 
-    var user = {userid: userid, email: email, name: name, clubs: clubs, adminClubs: adminclubs};
+    var user = {userid: userid, name: name, clubs: clubs, adminClubs: adminclubs};
     var userFile = userDb.getUserOrAdd(userid, function (error, users) {
         if (error) {
             console.log(error);
@@ -42,10 +37,10 @@ var postLogin = function(req, res){
                         req.session.isLoggedIn = true;
                         req.session.userid = userid;
                         res.cookie('userid', userid);
-                        res.cookie('email', email);
                         res.cookie('name', name);
-                        res.send('message');
                         console.log("USER:" + users[0]);
+
+                        res.redirect('/welcome');
                     }
                 });
             }
@@ -57,10 +52,10 @@ var postLogin = function(req, res){
                 req.session.isLoggedIn = true;
                 req.session.userid = userid;
                 res.cookie('userid', userid);
-                res.cookie('email', email);
                 res.cookie('name', name);
-                res.send('message');
                 console.log("USER:" + users[0]);
+
+                res.redirect('/welcome');
             }
         }
     });
@@ -97,7 +92,7 @@ var verifyLogin = function(req, res) {
 		res.redirect('/welcome');
 	}
     else {
-        res.redirect('/');
+        res.redirect('/auth/google');
     }
 };
 

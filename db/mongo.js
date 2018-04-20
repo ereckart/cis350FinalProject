@@ -16,7 +16,7 @@ var db = mongoose.connection;
 /* Set up DB Schemas */
 var userSchema = new mongoose.Schema({
     userid: {type: String, unique: true, required: true},
-    email: {type: String, required: true},
+    email: {type: String},
     name: {type: String, required: true},
     clubs: [String],
     adminClubs: [String]
