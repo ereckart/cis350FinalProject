@@ -6,8 +6,6 @@
     $('#clubName').text(clubName);
     console.log(clubName);
 
-
-
     //Display club name for This week in...
     $('#thisWeek').text('This week in ' + clubName);
 

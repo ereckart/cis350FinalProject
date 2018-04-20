@@ -379,7 +379,7 @@ var updateDescription = function(req, res) {
     console.log('inside update');
     console.log(req.body);
 
-    clubDb.changeClubDescription(req.body.clubName, req.body.welcomeBlurb, function(error){
+    clubDb.changeClubDescription(req.body.clubname, req.body.welcomeBlurb, function(error){
         if (error) {
             console.log(error);
         } else {
