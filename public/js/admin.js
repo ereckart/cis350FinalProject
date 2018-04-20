@@ -53,7 +53,6 @@ import '../../../js/fullcalendar.js';
 
     //Populate list of events
     var events = $.cookie('events');
-    console.log('events ' + events);
     var $eventList = $('#eventList');
     var calEvents = []
     if(events) {
@@ -64,7 +63,7 @@ import '../../../js/fullcalendar.js';
                 eventArray[i].date + " Start Time: " + eventArray[i].starttime +
                 " End Time: " + eventArray[i].endtime + '</li>');
 
-            var date = eventArray[i].date
+            var date = eventArray[i].date;
 
             var startTime = date.substring(6, 10) + '-' + date.substring(0, 2) + '-' + date.substring(3, 5) +
                 'T' +  eventArray[i].starttime + ':00';
@@ -78,11 +77,31 @@ import '../../../js/fullcalendar.js';
                 end : endTime
             }
 
-            console.log(startTime);
-            console.log(endTime);
-
             calEvents.push(e);
         }
+    }
+
+    console.log("Conflicts: ");
+    var conflicts = $.cookie('conflicts');
+    console.log('conflicts: ' + conflicts);
+    if (conflicts) {
+        var conflictArray = JSON.parse(conflicts);
+
+        for (var i = 0; i < conflictArray.length; i++) {
+            var date = conflictArray[i].date;
+            var startTime = date.substring(6, 10) + '-' + date.substring(0,2) + '-' + date.substring(3, 5) + 
+            'T' + conflictArray[i].starttime + ':00';
+            var endTime = date.substring(6, 10) + '-' + date.substring(0,2) + '-' + date.substring(3, 5) + 
+            'T' + conflictArray[i].endtime + ':00';
+
+            var c = {
+                title : conflictArray[i].reason,
+                start : startTime,
+                end : endTime
+            }
+        }
+
+        calEvents.push(c);
     }
 
     //Show the calendar

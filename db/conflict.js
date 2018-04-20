@@ -12,6 +12,13 @@ module.exports = {
             callback(error);
             console.log('got to save function');
         });
+    },
+
+    // Get event by eventname.
+    getConflict: function (conflictID, callback) {
+        return mongo.Conflict.find({conflictid: conflictID}).exec(function (error, events) {
+            callback(error, events);
+        });
     }
     
 }

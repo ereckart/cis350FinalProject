@@ -98,7 +98,6 @@ var submitConflict = function(req, res) {
     var date = req.body.conflictDate;
     var start = req.body.conflictStart;
     var end = req.body.conflictEnd;
-    var reason = req.body.conflictReason;
     var ownerid = req.body.userid;
     r = req.body;
     var id = randomstring.generate(12);
@@ -117,7 +116,7 @@ var submitConflict = function(req, res) {
                     date: date,
                     starttime: start,
                     endtime: end,
-                    reason: reason};
+                    reason: title};
 
     console.log(conflict);
 
@@ -246,6 +245,9 @@ var clubPageAdmin = function(req, res) {
             var eventids = clubs[0].events
             var events = [];
 
+            var conflictids = clubs[0].conflicts;
+            var conflicts = [];
+
             for(var i = 0; i < memberids.length; i++) {
                 var currid = memberids[i];
                 var curri = i;
@@ -256,24 +258,51 @@ var clubPageAdmin = function(req, res) {
                     }
                     members.push(users[0].name);
                     if(icurrent === (memberids.length - 1)) {
-                        var visited = 0;
+                        var eventsvisited = 0;
                         for(var j = 0; j < eventids.length; j++) {
                             var curreventid = eventids[j];
                             var currj = j;
-                            (function(currentid, jcurr) {
-                                eventDb.getEvent(currentid, function(error, e) {
+                            (function(currenteventid, jcurr) {
+                                eventDb.getEvent(currenteventid, function(error, e) {
                                     if (error) {
                                         console.log(error);
                                     }
                                     events.push(e[0]);
-                                    if(visited == eventids.length - 1) {
-                                        res.cookie('members', JSON.stringify(members));
-                                        res.cookie('events', JSON.stringify(events));
-                                        res.cookie('clubName', clubname);
-                                        res.cookie('blurb', clubs[0].welcomeblurb);
-                                        res.render('club-admin');
+                                    if(eventsvisited == eventids.length - 1) {
+                                        conflictsvisited = 0;
+                                        for (var k = 0; k < conflictids.length; k++) {
+                                            var currconflictid = conflictids[k];
+                                            var currk = k;
+                                            (function(currentconflictid, kcurr) {
+                                                conflictDb.getConflict(currentconflictid, function (error, c) {
+                                                    if (error) {
+                                                        console.log(error);
+                                                    }
+                                                    conflicts.push(c[0]);
+                                                    if (conflictsvisited == (conflictids.length - 1)) {
+                                                        res.cookie('members', JSON.stringify(members));
+                                                        res.cookie('events', JSON.stringify(events));
+                                                        res.cookie('conflicts', JSON.stringify(conflicts));
+                                                        res.cookie('clubName', clubname);
+                                                        res.cookie('blurb', clubs[0].welcomeblurb);
+                                                        res.render('club-admin');
+                                                    } else {
+                                                        conflictsvisited++;
+                                                    }
+                                                })
+                                            })(currconflictid, currk);
+                                        }
+                                        if(conflictids.length == 0) {
+                                            res.cookie('members', JSON.stringify(members));
+                                            res.cookie('events', JSON.stringify(events));
+                                            res.cookie('conflicts', JSON.stringify(conflicts));
+                                            res.cookie('clubName', clubname);
+                                            res.cookie('blurb', clubs[0].welcomeblurb);
+                                            res.render('club-admin');
+                                        }
+                                        
                                     } else {
-                                        visited ++;
+                                        eventsvisited ++;
                                     }
                                 });
                             })(curreventid, currj);
@@ -281,6 +310,7 @@ var clubPageAdmin = function(req, res) {
                         if(eventids.length == 0) {
                             res.cookie('members', JSON.stringify(members));
                             res.cookie('events', JSON.stringify(events));
+                            res.cookie('conflicts', JSON.stringify(conflicts));
                             res.cookie('clubName', clubname);
                             res.cookie('blurb', clubs[0].welcomeblurb);
                             res.render('club-admin');
